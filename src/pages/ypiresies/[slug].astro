@@ -2,71 +2,93 @@
 import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { services, getService } from '../../data/site.js';
+import { company, services, getService } from '../../data/site.js';
 
 export function getStaticPaths() {
   return services.map((s) => ({ params: { slug: s.slug } }));
 }
 
 const { slug } = Astro.params;
-const service = getService(slug);
+const service = getService(slug)!;
 const others = services.filter((s) => s.slug !== slug);
 ---
 <Base title={service.metaTitle} description={service.metaDescription} image={service.image}>
-  <section class="pagehero">
-    <div class="wrap">
+  <!-- HERO: full-bleed photo -->
+  <section class="shero">
+    <div class="shero__img"><img src={service.image} alt={service.imageAlt} /></div>
+    <div class="wrap shero__inner">
       <p class="crumbs"><a href="/">Αρχική</a> / <a href="/ypiresies">Υπηρεσίες</a> / {service.title}</p>
-      <span class="eyebrow">Υπηρεσία {service.num}</span>
+      <span class="index">— Υπηρεσία {service.num}</span>
       <h1>{service.title}</h1>
-      <p>{service.short}</p>
+      <p class="shero__sub">{service.short}</p>
+      <div class="shero__ctas">
+        <a href="/epikoinonia" class="btn btn--light">Ζητήστε προσφορά</a>
+        <a href={`tel:${company.phoneMobileHref}`} class="btn btn--ghost-light">
+          <Icon name="phone" size={18} stroke={2} /> {company.phoneMobile}
+        </a>
+      </div>
     </div>
   </section>
 
+  <!-- INTRO: oversized lead + body -->
   <section class="section">
     <div class="wrap">
-      <div class="split" style="align-items: start;">
-        <div class="split__media">
-          <img src={service.image} alt={service.imageAlt} width="900" height="600" style="aspect-ratio: 4/3;" />
-        </div>
-        <div class="prose">
+      <div class="intro-grid">
+        <p class="lead-xl" data-reveal>{service.promise}</p>
+        <div class="body" data-reveal data-delay="1">
           <p>{service.intro}</p>
-          <h2 style="font-size: 1.4rem; margin: 8px 0 18px;">Τι περιλαμβάνει</h2>
-          <ul class="checklist">
-            {service.tasks.map((t) => (
-              <li><Icon name="check" size={18} stroke={2} /><span>{t}</span></li>
-            ))}
-          </ul>
-          <p style="margin-top: 22px;">{service.outro}</p>
-          <p style="margin-top: 22px;">
-            <a href="/epikoinonia" class="btn btn--solid">Ζητήστε προσφορά</a>
-          </p>
+          <p>{service.outro}</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- WHAT'S INCLUDED: sticky aside + checklist grid -->
   <section class="section section--soft">
     <div class="wrap">
-      <div class="section-head" style="margin-bottom: 32px;">
-        <h2 style="font-size: 1.5rem;">Άλλες υπηρεσίες</h2>
-      </div>
-      <div class="services">
-        {others.map((s) => (
-          <article class="service">
-            <a class="service__img" href={`/ypiresies/${s.slug}`} aria-label={s.title}>
-              <img src={s.image} alt={s.imageAlt} loading="lazy" width="900" height="600" />
-            </a>
-            <div class="service__body">
-              <span class="service__num">{s.num}</span>
-              <h3><a href={`/ypiresies/${s.slug}`}>{s.title}</a></h3>
-              <p>{s.short}</p>
-              <a class="service__more" href={`/ypiresies/${s.slug}`}>Δείτε περισσότερα <Icon name="arrow" size={16} stroke={2} /></a>
-            </div>
-          </article>
-        ))}
+      <div class="detail">
+        <aside class="detail__aside" data-reveal>
+          <span class="eyebrow">Τι περιλαμβάνει</span>
+          <h2>Αναλυτικά οι εργασίες</h2>
+          <p>Κάθε πρόγραμμα προσαρμόζεται στον χώρο σας. Η αυτοψία και η προσφορά γίνονται χωρίς χρέωση.</p>
+          <a href="/epikoinonia" class="btn btn--solid">Ζητήστε προσφορά</a>
+        </aside>
+        <ul class="checklist checklist--grid" data-reveal data-delay="1">
+          {service.tasks.map((t) => (
+            <li><Icon name="check" size={18} stroke={2} /><span>{t}</span></li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
-  <CtaBand />
+  <!-- STATEMENT band (brand refrain) -->
+  <section class="statement">
+    <div class="wrap">
+      <div class="statement__inner" data-reveal>
+        <p>Καθαριότητα με <span class="accent">συνέπεια και αξιοπιστία</span>, από μια οικογενειακή ομάδα με οικολογικά προϊόντα και σύγχρονο εξοπλισμό.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OTHER SERVICES: arrow link-rows -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom: 24px;">
+        <span class="eyebrow">Οι υπηρεσίες μας</span>
+        <h2 style="font-size: clamp(1.6rem, 2.6vw, 2.1rem);">Δείτε επίσης</h2>
+      </div>
+      <nav class="linkrows" aria-label="Άλλες υπηρεσίες">
+        {others.map((s) => (
+          <a href={`/ypiresies/${s.slug}`} data-reveal>
+            <span class="n">{s.num}</span>
+            <span class="t">{s.title}</span>
+            <Icon name="arrow" size={22} class="a" />
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <CtaBand title="Έτοιμοι να ξεκινήσουμε;" text="Κλείστε δωρεάν αυτοψία για τον χώρο σας — σας δίνουμε προσφορά χωρίς δέσμευση." />
 </Base>

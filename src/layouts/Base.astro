@@ -11,17 +11,18 @@ const {
   noindex = false,
 } = Astro.props;
 
+const site = Astro.site ?? new URL('https://safecleaning.gr');
 const fullTitle = title ? `${title}` : `${company.name} — ${company.tagline}`;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogImage = new URL(image, Astro.site).href;
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImage = new URL(image, site).href;
 
 const ld = {
   '@context': 'https://schema.org',
   '@type': 'CleaningService',
   name: company.name,
   description: company.description,
-  image: new URL(company.logo, Astro.site).href,
-  url: Astro.site.href,
+  image: new URL(company.logo, site).href,
+  url: site.href,
   telephone: company.phoneMobileHref,
   email: company.email,
   address: {
@@ -67,5 +68,26 @@ const ld = {
     <slot />
   </main>
   <Footer />
+  <script>
+    // Subtle scroll reveal for [data-reveal] elements.
+    const els = document.querySelectorAll('[data-reveal]');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('in'));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+      );
+      els.forEach((el) => io.observe(el));
+    }
+  </script>
 </body>
 </html>
