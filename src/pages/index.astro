@@ -47,13 +47,13 @@ const iconFor = (i) => reasons[i].icon;
   <!-- SERVICES -->
   <section class="section" id="ypiresies">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">Οι υπηρεσίες μας</span>
         <h2>Καθαρισμοί προσαρμοσμένοι σε κάθε χώρο</h2>
         <p>Αναλαμβάνουμε κοινόχρηστους, επαγγελματικούς και κτιριακούς χώρους με σταθερό πρόγραμμα,
           σύγχρονο εξοπλισμό και οικολογικά προϊόντα καθαρισμού.</p>
       </div>
-      <div class="services">
+      <div class="services" data-reveal data-delay="1">
         {services.map((s) => <ServiceCard service={s} />)}
       </div>
     </div>
@@ -63,14 +63,14 @@ const iconFor = (i) => reasons[i].icon;
   <section class="section section--soft">
     <div class="wrap">
       <div class="split">
-        <div class="split__media">
+        <div class="split__media" data-reveal>
           <img src="/images/why-team.jpg" alt="Επαγγελματίας της SafeCleaning σε εργασία καθαρισμού" width="1024" height="1536" />
           <div class="badge">
             <strong>Παλλήνη</strong>
             <span>& ευρύτερη Αττική, με άμεση εξυπηρέτηση</span>
           </div>
         </div>
-        <div>
+        <div data-reveal data-delay="1">
           <div class="section-head" style="margin-bottom: 26px;">
             <span class="eyebrow">Γιατί SafeCleaning</span>
             <h2>Μια οικογενειακή επιχείρηση που χτίζει σχέσεις</h2>
@@ -92,17 +92,26 @@ const iconFor = (i) => reasons[i].icon;
     </div>
   </section>
 
+  <!-- STATEMENT band (brand refrain) -->
+  <section class="statement">
+    <div class="wrap">
+      <div class="statement__inner" data-reveal>
+        <p>Καθαριότητα με <span class="accent">συνέπεια και αξιοπιστία</span> — μια οικογενειακή ομάδα, οικολογικά προϊόντα και ένα σταθερό πρόγραμμα που κρατάει.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- PROCESS -->
   <section class="section">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="eyebrow">Πώς συνεργαζόμαστε</span>
         <h2>Από την αυτοψία στο σταθερό πρόγραμμα</h2>
         <p>Τρία απλά βήματα για να ξεκινήσουμε — χωρίς δέσμευση και χωρίς χρέωση για την αρχική εκτίμηση.</p>
       </div>
       <div class="process">
         {steps.map((st, i) => (
-          <div class="step">
+          <div class="step" data-reveal data-delay={i + 1}>
             <div class="step__num">{i + 1}</div>
             <h3>{st.title}</h3>
             <p>{st.text}</p>

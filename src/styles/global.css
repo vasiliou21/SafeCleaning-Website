@@ -21,7 +21,7 @@ button { font: inherit; cursor: pointer; }
   --bg-soft:   #f6f8f9;
   --bg-tint:   #eef3f4;
 
-  --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --sans:  'Inter', system-ui, -apple-system, sans-serif;
 }
 
