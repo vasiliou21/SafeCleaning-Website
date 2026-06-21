@@ -1,0 +1,45 @@
+---
+import { services } from '../data/site.js';
+// Netlify Forms — static-friendly. After deploy, set the recipient email in the
+// Netlify dashboard (Forms → Notifications). Submissions redirect to /efxaristoume.
+---
+<form
+  class="form"
+  name="prosfora"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  action="/efxaristoume"
+>
+  <input type="hidden" name="form-name" value="prosfora" />
+  <p class="hp"><label>Μην το συμπληρώσετε: <input name="bot-field" /></label></p>
+
+  <div class="form__row">
+    <div class="field">
+      <label for="name">Ονοματεπώνυμο</label>
+      <input id="name" name="name" type="text" placeholder="Το όνομά σας" required />
+    </div>
+    <div class="field">
+      <label for="phone">Τηλέφωνο</label>
+      <input id="phone" name="phone" type="tel" placeholder="69x xxx xxxx" required />
+    </div>
+  </div>
+  <div class="field">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" placeholder="email@example.com" />
+  </div>
+  <div class="field">
+    <label for="type">Τύπος χώρου</label>
+    <select id="type" name="type">
+      <option value="">Επιλέξτε τύπο χώρου</option>
+      {services.map((s) => <option>{s.title}</option>)}
+      <option>Άλλο</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="message">Μήνυμα</label>
+    <textarea id="message" name="message" placeholder="Περιγράψτε σύντομα τον χώρο και τις ανάγκες σας."></textarea>
+  </div>
+  <button type="submit" class="btn btn--solid">Αποστολή αιτήματος</button>
+  <p class="form__note">Θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό.</p>
+</form>

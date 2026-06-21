@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services } from '../../data/site.js';
+
+const title = 'Υπηρεσίες Καθαρισμού — Πολυκατοικίες, Επαγγελματικοί Χώροι, Κτίρια | SafeCleaning';
+const description =
+  'Όλες οι υπηρεσίες καθαρισμού της SafeCleaning στην Παλλήνη & Αττική: πολυκατοικίες, επαγγελματικοί χώροι, κτίρια και αρχικοί καθαρισμοί, με οικολογικά προϊόντα.';
+---
+<Base title={title} description={description}>
+  <section class="pagehero">
+    <div class="wrap">
+      <p class="crumbs"><a href="/">Αρχική</a> / Υπηρεσίες</p>
+      <span class="eyebrow">Οι υπηρεσίες μας</span>
+      <h1>Καθαρισμοί προσαρμοσμένοι σε κάθε χώρο</h1>
+      <p>Επιλέξτε την υπηρεσία που σας ενδιαφέρει για αναλυτική περιγραφή. Σε κάθε περίπτωση,
+        η αυτοψία και η προσφορά γίνονται χωρίς καμία χρέωση.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="services">
+        {services.map((s) => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

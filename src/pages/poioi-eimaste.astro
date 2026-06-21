@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { reasons } from '../data/site.js';
+
+const title = 'Ποιοι Είμαστε — Οικογενειακή Εταιρεία Καθαρισμού στην Παλλήνη | SafeCleaning';
+const description =
+  'Η SafeCleaning είναι μια οικογενειακή εταιρεία καθαρισμού με έδρα την Παλλήνη Αττικής, εξειδικευμένη στους καθαρισμούς κτιρίων και επαγγελματικών χώρων με αξιοπιστία.';
+---
+<Base title={title} description={description}>
+  <section class="pagehero">
+    <div class="wrap">
+      <p class="crumbs"><a href="/">Αρχική</a> / Ποιοι Είμαστε</p>
+      <span class="eyebrow">Η εταιρεία μας</span>
+      <h1>Καθαριότητα με αξιοπιστία, από μια οικογενειακή επιχείρηση</h1>
+      <p>Με έδρα την Παλλήνη Αττικής, εξειδικευόμαστε στους καθαρισμούς κτιρίων και επαγγελματικών χώρων.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split" style="align-items: start;">
+        <div class="split__media">
+          <img src="/images/why-team.png" alt="Επαγγελματίας της SafeCleaning σε εργασία καθαρισμού" width="1080" height="726" />
+          <div class="badge">
+            <strong>Παλλήνη</strong>
+            <span>& ευρύτερη Αττική, με άμεση εξυπηρέτηση</span>
+          </div>
+        </div>
+        <div class="prose">
+          <p>Καλώς ήρθατε στη SafeCleaning. Η εταιρεία μας έχει εξειδικευτεί στους καθαρισμούς κτιρίων
+            και επαγγελματικών χώρων, προσφέροντας υπηρεσίες υψηλού επιπέδου με αξιοπιστία.</p>
+          <p>Η SafeCleaning αποτελεί οικογενειακή επιχείρηση με ξεχωριστή εμπειρία στην εξυπηρέτηση και
+            διαχείριση κτιρίων. Καθοριστικός στόχος μας είναι η άριστη εξυπηρέτηση των πελατών μας, καθώς
+            και η ανάπτυξη μακροχρόνιων και ανθρώπινων σχέσεων συνεργασίας με αυτούς.</p>
+          <p>Χρησιμοποιούμε σύγχρονο εξοπλισμό και οικολογικά προϊόντα καθαρισμού που σέβονται το περιβάλλον
+            και την ανθρώπινη υγεία, εξασφαλίζοντας τον καθαρισμό κάθε λεπτομέρειας — ακόμη και στους πιο
+            απαιτητικούς χώρους.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section-head center">
+        <span class="eyebrow">Οι αρχές μας</span>
+        <h2>Τι μας ξεχωρίζει</h2>
+      </div>
+      <div class="process">
+        {reasons.slice(0, 3).map((r) => (
+          <div class="step">
+            <div class="step__num" style="border-color: var(--gold-soft);"><Icon name={r.icon} size={20} /></div>
+            <h3>{r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

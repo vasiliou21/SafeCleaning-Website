@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+const items = [
+  { icon: 'family', b: 'Οικογενειακή επιχείρηση', s: 'Με έδρα την Παλλήνη' },
+  { icon: 'leaf', b: 'Οικολογικά προϊόντα', s: 'Ασφάλεια & υγιεινή' },
+  { icon: 'mappin', b: 'Παλλήνη & Αττική', s: 'Άμεση εξυπηρέτηση' },
+  { icon: 'checkbox', b: 'Δωρεάν αυτοψία', s: 'Χωρίς καμία χρέωση' },
+];
+---
+<section class="trust">
+  <div class="wrap">
+    <div class="trust__inner">
+      {items.map((it) => (
+        <div class="trust__item">
+          <Icon name={it.icon} size={24} />
+          <div><b>{it.b}</b><small>{it.s}</small></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

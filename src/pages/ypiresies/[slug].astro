@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services, getService } from '../../data/site.js';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const service = getService(slug);
+const others = services.filter((s) => s.slug !== slug);
+---
+<Base title={service.metaTitle} description={service.metaDescription} image={service.image}>
+  <section class="pagehero">
+    <div class="wrap">
+      <p class="crumbs"><a href="/">Αρχική</a> / <a href="/ypiresies">Υπηρεσίες</a> / {service.title}</p>
+      <span class="eyebrow">Υπηρεσία {service.num}</span>
+      <h1>{service.title}</h1>
+      <p>{service.short}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split" style="align-items: start;">
+        <div class="split__media">
+          <img src={service.image} alt={service.imageAlt} width="900" height="600" style="aspect-ratio: 4/3;" />
+        </div>
+        <div class="prose">
+          <p>{service.intro}</p>
+          <h2 style="font-size: 1.4rem; margin: 8px 0 18px;">Τι περιλαμβάνει</h2>
+          <ul class="checklist">
+            {service.tasks.map((t) => (
+              <li><Icon name="check" size={18} stroke={2} /><span>{t}</span></li>
+            ))}
+          </ul>
+          <p style="margin-top: 22px;">{service.outro}</p>
+          <p style="margin-top: 22px;">
+            <a href="/epikoinonia" class="btn btn--solid">Ζητήστε προσφορά</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section-head" style="margin-bottom: 32px;">
+        <h2 style="font-size: 1.5rem;">Άλλες υπηρεσίες</h2>
+      </div>
+      <div class="services">
+        {others.map((s) => (
+          <article class="service">
+            <a class="service__img" href={`/ypiresies/${s.slug}`} aria-label={s.title}>
+              <img src={s.image} alt={s.imageAlt} loading="lazy" width="900" height="600" />
+            </a>
+            <div class="service__body">
+              <span class="service__num">{s.num}</span>
+              <h3><a href={`/ypiresies/${s.slug}`}>{s.title}</a></h3>
+              <p>{s.short}</p>
+              <a class="service__more" href={`/ypiresies/${s.slug}`}>Δείτε περισσότερα <Icon name="arrow" size={16} stroke={2} /></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

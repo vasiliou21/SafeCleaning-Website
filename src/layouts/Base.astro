@@ -1,0 +1,71 @@
+---
+import { company } from '../data/site.js';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const {
+  title,
+  description = company.description,
+  image = company.logo,
+  noindex = false,
+} = Astro.props;
+
+const fullTitle = title ? `${title}` : `${company.name} — ${company.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image, Astro.site).href;
+
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'CleaningService',
+  name: company.name,
+  description: company.description,
+  image: new URL(company.logo, Astro.site).href,
+  url: Astro.site.href,
+  telephone: company.phoneMobileHref,
+  email: company.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Λεωφ. Μαραθώνος 56',
+    addressLocality: 'Παλλήνη',
+    postalCode: company.postalCode,
+    addressRegion: company.region,
+    addressCountry: 'GR',
+  },
+  areaServed: company.areaServed,
+};
+---
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="el_GR" />
+  <meta property="og:site_name" content={company.name} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</head>
+<body>
+  <Header />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</body>
+</html>

@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { company } from '../data/site.js';
+---
+<Base title="Ευχαριστούμε — SafeCleaning" noindex={true}>
+  <section class="section" style="text-align: center;">
+    <div class="wrap wrap--narrow">
+      <div class="step__num" style="margin: 0 auto 22px; width: 56px; height: 56px; color: var(--teal-dark); border-color: var(--teal);">
+        <Icon name="check" size={26} stroke={2} />
+      </div>
+      <h1 style="font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 14px;">Ευχαριστούμε για το μήνυμά σας!</h1>
+      <p class="lead" style="margin-bottom: 28px;">
+        Λάβαμε το αίτημά σας και θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό για να κανονίσουμε
+        δωρεάν αυτοψία και να σας δώσουμε προσφορά.
+      </p>
+      <p style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="/" class="btn btn--outline">Επιστροφή στην αρχική</a>
+        <a href={`tel:${company.phoneMobileHref}`} class="btn btn--solid">
+          <Icon name="phone" size={18} stroke={2} /> {company.phoneMobile}
+        </a>
+      </p>
+    </div>
+  </section>
+</Base>

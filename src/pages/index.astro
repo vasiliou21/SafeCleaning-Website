@@ -1,0 +1,116 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { company, services, reasons, steps } from '../data/site.js';
+
+const title = 'SafeCleaning — Επαγγελματικοί Καθαρισμοί στην Παλλήνη & Αττική';
+const description =
+  'Οικογενειακή εταιρεία επαγγελματικού καθαρισμού στην Παλλήνη. Καθαρισμοί πολυκατοικιών, επαγγελματικών χώρων, κτιρίων & αρχικοί καθαρισμοί με οικολογικά προϊόντα. Δωρεάν αυτοψία & προσφορά.';
+const iconFor = (i) => reasons[i].icon;
+---
+<Base title={title} description={description} image="/images/hero.jpg">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__grid">
+        <div class="hero__content">
+          <span class="eyebrow">Επαγγελματικοί καθαρισμοί · Παλλήνη, Αττική</span>
+          <h1>Καθαροί χώροι, με συνέπεια και αξιοπιστία</h1>
+          <p class="hero__sub">
+            Οικογενειακή εταιρεία καθαρισμού με έδρα την Παλλήνη. Αναλαμβάνουμε πολυκατοικίες,
+            επαγγελματικούς χώρους και κτίρια σε όλη την Αττική, με οικολογικά προϊόντα και σταθερό πρόγραμμα.
+          </p>
+          <div class="hero__ctas">
+            <a href="/epikoinonia" class="btn btn--light">Ζητήστε Προσφορά</a>
+            <a href={`tel:${company.phoneMobileHref}`} class="btn btn--ghost-light">
+              <Icon name="phone" size={18} stroke={2} /> Καλέστε μας
+            </a>
+          </div>
+          <div class="hero__assure">
+            <span><Icon name="check" size={16} stroke={2} /> Δωρεάν αυτοψία & προσφορά</span>
+            <span><Icon name="check" size={16} stroke={2} /> Οικολογικά προϊόντα</span>
+            <span><Icon name="check" size={16} stroke={2} /> Οικογενειακή επιχείρηση</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero__media">
+      <img src="/images/hero.jpg" alt="Επαγγελματικός καθαρισμός χώρου" width="1600" height="1067" />
+    </div>
+  </section>
+
+  <TrustStrip />
+
+  <!-- SERVICES -->
+  <section class="section" id="ypiresies">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Οι υπηρεσίες μας</span>
+        <h2>Καθαρισμοί προσαρμοσμένοι σε κάθε χώρο</h2>
+        <p>Αναλαμβάνουμε κοινόχρηστους, επαγγελματικούς και κτιριακούς χώρους με σταθερό πρόγραμμα,
+          σύγχρονο εξοπλισμό και οικολογικά προϊόντα καθαρισμού.</p>
+      </div>
+      <div class="services">
+        {services.map((s) => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="split">
+        <div class="split__media">
+          <img src="/images/why-team.png" alt="Επαγγελματίας της SafeCleaning σε εργασία καθαρισμού" width="1080" height="726" />
+          <div class="badge">
+            <strong>Παλλήνη</strong>
+            <span>& ευρύτερη Αττική, με άμεση εξυπηρέτηση</span>
+          </div>
+        </div>
+        <div>
+          <div class="section-head" style="margin-bottom: 26px;">
+            <span class="eyebrow">Γιατί SafeCleaning</span>
+            <h2>Μια οικογενειακή επιχείρηση που χτίζει σχέσεις</h2>
+          </div>
+          <p class="lead" style="margin-bottom: 26px;">
+            Με έδρα την Παλλήνη Αττικής, εξειδικευόμαστε στον καθαρισμό κτιρίων και επαγγελματικών χώρων.
+            Στόχος μας είναι η άριστη εξυπηρέτηση και η ανάπτυξη μακροχρόνιων, ανθρώπινων σχέσεων συνεργασίας.
+          </p>
+          <ul class="feature-list">
+            {reasons.map((r) => (
+              <li>
+                <span class="feature-ico"><Icon name={r.icon} size={20} /></span>
+                <div><h3>{r.title}</h3><p>{r.text}</p></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Πώς συνεργαζόμαστε</span>
+        <h2>Από την αυτοψία στο σταθερό πρόγραμμα</h2>
+        <p>Τρία απλά βήματα για να ξεκινήσουμε — χωρίς δέσμευση και χωρίς χρέωση για την αρχική εκτίμηση.</p>
+      </div>
+      <div class="process">
+        {steps.map((st, i) => (
+          <div class="step">
+            <div class="step__num">{i + 1}</div>
+            <h3>{st.title}</h3>
+            <p>{st.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

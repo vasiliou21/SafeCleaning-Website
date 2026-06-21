@@ -1,0 +1,22 @@
+---
+import { company } from '../data/site.js';
+import Icon from './Icon.astro';
+const {
+  title = 'Ζητήστε δωρεάν αυτοψία για τον χώρο σας',
+  text = 'Επικοινωνήστε μαζί μας και θα σας δώσουμε προσφορά χωρίς καμία επιπλέον χρέωση.',
+} = Astro.props;
+---
+<section class="ctaband">
+  <div class="wrap ctaband__inner">
+    <div>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="ctaband__actions">
+      <a href="/epikoinonia" class="btn btn--light">Ζητήστε Προσφορά</a>
+      <a href={`tel:${company.phoneMobileHref}`} class="btn btn--ghost-light">
+        <Icon name="phone" size={18} stroke={2} /> {company.phoneMobile}
+      </a>
+    </div>
+  </div>
+</section>

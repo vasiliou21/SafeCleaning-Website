@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import { company } from '../data/site.js';
+
+const title = 'Επικοινωνία — Ζητήστε Δωρεάν Προσφορά | SafeCleaning';
+const description =
+  'Επικοινωνήστε με τη SafeCleaning στην Παλλήνη. Τηλέφωνο 698 077 9494, email info@safecleaning.gr. Ζητήστε δωρεάν αυτοψία και προσφορά για τον χώρο σας.';
+---
+<Base title={title} description={description}>
+  <section class="section quote">
+    <div class="wrap">
+      <div class="quote__grid">
+        <div class="quote__intro">
+          <span class="eyebrow">Επικοινωνία</span>
+          <h2>Ζητήστε προσφορά για τον χώρο σας</h2>
+          <p>Συμπληρώστε τα στοιχεία σας και θα επικοινωνήσουμε άμεσα για να κανονίσουμε αυτοψία και
+            να σας δώσουμε προσφορά, χωρίς καμία επιπλέον χρέωση.</p>
+          <div class="quote__contacts">
+            <a class="quote__contact" href={`tel:${company.phoneMobileHref}`}>
+              <Icon name="phone" size={20} />
+              <div><b>{company.phoneMobile}</b><span>Κινητό · άμεση εξυπηρέτηση</span></div>
+            </a>
+            <a class="quote__contact" href={`tel:${company.phoneLandlineHref}`}>
+              <Icon name="phone" size={20} />
+              <div><b>{company.phoneLandline}</b><span>Σταθερό τηλέφωνο</span></div>
+            </a>
+            <a class="quote__contact" href={`mailto:${company.email}`}>
+              <Icon name="mail" size={20} />
+              <div><b>{company.email}</b><span>Email επικοινωνίας</span></div>
+            </a>
+            <div class="quote__contact">
+              <Icon name="mappin" size={20} />
+              <div><b>{company.address}</b><span>{company.postalCode}, {company.region}</span></div>
+            </div>
+          </div>
+        </div>
+        <QuoteForm />
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,45 @@
+---
+import { company, services } from '../data/site.js';
+---
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <div class="brand">
+          <img class="brand__logo" src={company.logo} alt={`${company.name} λογότυπο`} width="42" height="42" />
+          <span class="brand__name">Safe<b style="color:#7fd0cf;">Cleaning</b></span>
+        </div>
+        <p>{company.description}</p>
+      </div>
+      <div>
+        <h4>Υπηρεσίες</h4>
+        <ul>
+          {services.map((s) => (
+            <li><a href={`/ypiresies/${s.slug}`}>{s.title}</a></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4>Επικοινωνία</h4>
+        <ul>
+          <li>Κινητό: <a href={`tel:${company.phoneMobileHref}`}>{company.phoneMobile}</a></li>
+          <li>Σταθερό: <a href={`tel:${company.phoneLandlineHref}`}>{company.phoneLandline}</a></li>
+          <li><a href={`mailto:${company.email}`}>{company.email}</a></li>
+          <li>{company.address} {company.postalCode}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© {new Date().getFullYear()} {company.name}. Με επιφύλαξη παντός δικαιώματος.</span>
+      <span>Σχεδιασμός &amp; ανάπτυξη: <span class="istos">Istos Studio</span></span>
+    </div>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="call" href={`tel:${company.phoneMobileHref}`}>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Καλέστε μας
+  </a>
+  <a class="quote" href="/epikoinonia">Ζητήστε Προσφορά</a>
+</div>

@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.astro';
+const { service } = Astro.props;
+const href = `/ypiresies/${service.slug}`;
+---
+<article class="service">
+  <a class="service__img" href={href} aria-label={service.title}>
+    <img src={service.image} alt={service.imageAlt} loading="lazy" width="900" height="600" />
+  </a>
+  <div class="service__body">
+    <span class="service__num">{service.num}</span>
+    <h3><a href={href}>{service.title}</a></h3>
+    <p>{service.short}</p>
+    <div class="service__tags">
+      {service.tags.map((t) => <span>{t}</span>)}
+    </div>
+    <a class="service__more" href={href}>Δείτε περισσότερα <Icon name="arrow" size={16} stroke={2} /></a>
+  </div>
+</article>
