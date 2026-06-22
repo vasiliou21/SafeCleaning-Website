@@ -86,6 +86,36 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
 .nav-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--navy); align-items: center; justify-content: center; }
 .mobile-menu { display: none; }
 
+/* ── desktop services dropdown ── */
+.nav-item--menu { position: relative; }
+.nav-trigger { display: inline-flex; align-items: center; gap: 4px; }
+.nav-caret { transition: transform 0.2s ease; }
+.nav-item--menu:hover .nav-caret,
+.nav-item--menu:focus-within .nav-caret,
+.nav-item--menu.open .nav-caret { transform: rotate(180deg); }
+/* invisible hover bridge so the menu survives the gap below the trigger */
+.nav-item--menu::after { content: ''; position: absolute; top: 100%; left: -10px; right: -10px; height: 16px; }
+.nav-dd {
+  position: absolute; top: calc(100% + 14px); left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 300px; background: #fff; border: 1px solid var(--line);
+  border-radius: 12px; box-shadow: 0 26px 50px -26px rgba(18,42,63,0.5);
+  padding: 8px; z-index: 60;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.nav-item--menu:hover .nav-dd,
+.nav-item--menu:focus-within .nav-dd,
+.nav-item--menu.open .nav-dd {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.nav-dd a { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 8px; font-size: 0.95rem; font-weight: 500; color: var(--ink); }
+.nav-dd a::after { display: none; }
+.nav-dd a:hover { background: var(--bg-tint); color: var(--teal-dark); }
+.nav-dd__all { font-weight: 600; color: var(--teal-dark); border-bottom: 1px solid var(--line); border-radius: 8px 8px 0 0; margin-bottom: 4px; }
+.nav-dd__n { font-family: var(--serif); color: var(--gold); font-size: 0.9rem; min-width: 2ch; }
+
 /* ── hero ── */
 .hero { background: var(--navy); color: #fff; position: relative; overflow: hidden; }
 .hero__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; min-height: 560px; }
@@ -306,35 +336,91 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
 
 /* ── responsive ── */
 @media (max-width: 920px) {
+  /* Mobile hero: the photo becomes a full-bleed background behind the text,
+     with a strong navy scrim so the copy stays high-contrast and readable.
+     (.hero__media is a sibling of .wrap, so we layer with z-index, not order.) */
+  .hero { position: relative; }
   .hero__grid { grid-template-columns: 1fr; min-height: 0; }
-  .hero__content { padding: 52px 0; max-width: none; order: 2; }
-  .hero__media { position: static; width: 100%; height: 260px; order: 1; }
-  .hero__media::after { background: linear-gradient(0deg, var(--navy) 0%, transparent 75%); }
+  .hero__content { padding: 62px 0 70px; max-width: 38ch; position: relative; z-index: 2; }
+  .hero__media { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+  .hero__media img { object-position: center; }
+  .hero__media::after {
+    background: linear-gradient(180deg,
+      rgba(13,32,48,0.86) 0%,
+      rgba(13,32,48,0.68) 45%,
+      rgba(13,32,48,0.88) 100%);
+  }
+  .hero__sub { color: rgba(255,255,255,0.92); }
+  .hero__assure { color: rgba(255,255,255,0.85); }
   .split { grid-template-columns: 1fr; gap: 48px; }
   .split__media .badge { left: 16px; bottom: 16px; }
 }
 @media (max-width: 760px) {
-  .nav, .header-phone { display: none; }
+  /* on phones the header keeps only the brand + hamburger; the quote CTA
+     lives in the mobile menu and the sticky call bar, so hide it here to
+     avoid a cramped, overflowing header row. */
+  .nav, .header-phone, .header-cta { display: none; }
   .nav-toggle { display: inline-flex; }
+  .header-inner { height: 64px; }
+
+  /* tighter vertical rhythm so phone pages don't feel endless */
+  .section { padding-block: 58px; }
+  .section-head { margin-bottom: 34px; }
+
   .services { grid-template-columns: 1fr; }
-  .process { grid-template-columns: 1fr; }
+  .process { grid-template-columns: 1fr; gap: 16px; }
   .trust__inner { grid-template-columns: 1fr 1fr; }
   .trust__item:nth-child(2) { border-right: none; }
-  .trust__item { border-bottom: 1px solid var(--line); }
+  .trust__item:nth-child(odd) { border-right: 1px solid var(--line); }
+  .trust__item:nth-child(1), .trust__item:nth-child(2) { border-bottom: 1px solid var(--line); }
+  .trust__item:nth-child(3), .trust__item:nth-child(4) { border-bottom: none; }
+  .trust__item { padding: 18px 18px; }
   .footer__grid { grid-template-columns: 1fr; gap: 28px; }
+  .form { padding: 24px; }
   .form__row { grid-template-columns: 1fr; }
-  .quote__grid { grid-template-columns: 1fr; gap: 40px; }
+  .quote__grid { grid-template-columns: 1fr; gap: 36px; }
   .ctaband__inner { padding-block: 44px; }
 
+  /* full-bleed service hero: shorter + tighter on phones */
+  .shero { min-height: 440px; }
+  .shero__inner { padding-block: 44px 38px; }
+  .statement__inner { padding-block: 60px; }
+  .statement::before { font-size: 11rem; }
+
   .mobile-menu { display: block; max-height: 0; overflow: hidden; background: #fff; border-bottom: 1px solid var(--line); transition: max-height 0.3s ease; }
-  .mobile-menu.open { max-height: 460px; }
+  .mobile-menu.open { max-height: 820px; }
   .mobile-menu nav { display: flex; flex-direction: column; padding: 8px 24px 18px; }
   .mobile-menu nav a { padding: 13px 0; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--bg-tint); }
-  .mobile-menu .btn { margin-top: 14px; justify-content: center; }
+  .mobile-menu .btn { margin-top: 14px; justify-content: center; border-bottom: none; }
+
+  /* mobile services accordion */
+  .m-acc__btn { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; padding: 13px 0; font-family: var(--sans); font-size: 1rem; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--bg-tint); }
+  .m-acc__caret { color: var(--muted); transition: transform 0.25s ease; }
+  .m-acc__btn[aria-expanded="true"] .m-acc__caret { transform: rotate(180deg); }
+  .m-acc__panel { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .m-acc__panel.open { max-height: 380px; }
+  .m-acc__panel a { display: flex; align-items: center; gap: 10px; padding: 11px 0 11px 14px; font-size: 0.94rem; color: var(--body-txt); }
+  .m-acc__n { font-family: var(--serif); color: var(--gold); font-size: 0.85rem; min-width: 2ch; }
+  .m-phone { display: flex; align-items: center; gap: 9px; padding: 13px 0; font-weight: 600; color: var(--navy) !important; border-bottom: 1px solid var(--bg-tint); }
 
   .callbar { display: grid; grid-template-columns: 1fr 1fr; position: fixed; bottom: 0; left: 0; right: 0; z-index: 60; border-top: 1px solid rgba(255,255,255,0.12); }
   .callbar a { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; font-weight: 600; font-size: 0.95rem; }
   .callbar a.call { background: var(--teal-dark); color: #fff; }
   .callbar a.quote { background: var(--navy); color: #fff; }
-  body { padding-bottom: 54px; }
+  body { padding-bottom: 56px; }
+}
+
+/* ── small phones ── */
+@media (max-width: 480px) {
+  .wrap { padding-inline: 18px; }
+  .hero h1 { font-size: 2.05rem; }
+  .hero__sub { font-size: 1.02rem; }
+  /* stacked, full-width CTAs are easier to tap */
+  .hero__ctas, .shero__ctas { flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero__ctas .btn, .shero__ctas .btn { width: 100%; justify-content: center; }
+  .form { padding: 20px; }
+  .trust__item { padding: 16px 14px; gap: 11px; }
+  .trust__item small { font-size: 0.74rem; }
+  .statement__inner { padding-block: 52px; }
+  .ctaband__inner { padding-block: 38px; }
 }

@@ -1,8 +1,9 @@
 ---
-import { company, nav } from '../data/site.js';
+import { company, nav, services } from '../data/site.js';
 import Icon from './Icon.astro';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href));
+const servicesHref = '/ypiresies';
 ---
 <header class="site-header">
   <div class="wrap header-inner">
@@ -12,7 +13,23 @@ const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href))
     </a>
     <nav class="nav" aria-label="Κύρια πλοήγηση">
       {nav.map((item) => (
-        <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+        item.href === servicesHref ? (
+          <div class="nav-item nav-item--menu" data-nav-dd>
+            <a href={item.href} class="nav-trigger" aria-current={isActive(item.href) ? 'page' : undefined} aria-haspopup="true" aria-expanded="false" data-dd-trigger>
+              {item.label}<Icon name="chevron" size={16} stroke={2} class="nav-caret" />
+            </a>
+            <div class="nav-dd" role="menu">
+              <a href={servicesHref} class="nav-dd__all" role="menuitem">Όλες οι υπηρεσίες</a>
+              {services.map((s) => (
+                <a href={`/ypiresies/${s.slug}`} role="menuitem">
+                  <span class="nav-dd__n">{s.num}</span><span>{s.title}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+        )
       ))}
     </nav>
     <div class="header-cta">
@@ -25,7 +42,26 @@ const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href))
   </div>
   <div class="mobile-menu" id="mobileMenu">
     <nav aria-label="Πλοήγηση κινητού">
-      {nav.map((item) => <a href={item.href} data-nav-link>{item.label}</a>)}
+      {nav.map((item) => (
+        item.href === servicesHref ? (
+          <div class="m-acc">
+            <button type="button" class="m-acc__btn" aria-expanded="false" data-acc-btn>
+              {item.label}<Icon name="chevron" size={18} stroke={2} class="m-acc__caret" />
+            </button>
+            <div class="m-acc__panel" data-acc-panel>
+              <a href={servicesHref} data-nav-link>Όλες οι υπηρεσίες</a>
+              {services.map((s) => (
+                <a href={`/ypiresies/${s.slug}`} data-nav-link><span class="m-acc__n">{s.num}</span>{s.title}</a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} data-nav-link>{item.label}</a>
+        )
+      ))}
+      <a href={`tel:${company.phoneMobileHref}`} class="m-phone" data-nav-link>
+        <Icon name="phone" size={18} stroke={2} /> {company.phoneMobile}
+      </a>
       <a href="/epikoinonia" class="btn btn--solid" data-nav-link>Ζητήστε Προσφορά</a>
     </nav>
   </div>
@@ -42,4 +78,29 @@ const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href))
   document.querySelectorAll('[data-nav-link]').forEach((a) =>
     a.addEventListener('click', () => menu.classList.remove('open'))
   );
+
+  // Mobile services accordion
+  const accBtn = document.querySelector('[data-acc-btn]');
+  const accPanel = document.querySelector('[data-acc-panel]');
+  accBtn?.addEventListener('click', () => {
+    const open = accBtn.getAttribute('aria-expanded') === 'true';
+    accBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+    accPanel?.classList.toggle('open', !open);
+  });
+
+  // Desktop dropdown: open on hover via CSS; add click/keyboard toggle for touch + a11y
+  const dd = document.querySelector('[data-nav-dd]');
+  const ddTrigger = document.querySelector('[data-dd-trigger]');
+  ddTrigger?.addEventListener('click', (e) => {
+    // allow navigating to /ypiresies on a real click, but on coarse pointers
+    // (touch) first tap opens the menu instead of navigating
+    if (window.matchMedia('(hover: none)').matches && dd && !dd.classList.contains('open')) {
+      e.preventDefault();
+      dd.classList.add('open');
+      ddTrigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (dd && !dd.contains(e.target as Node)) { dd.classList.remove('open'); ddTrigger?.setAttribute('aria-expanded', 'false'); }
+  });
 </script>
