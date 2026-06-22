@@ -5,7 +5,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href));
 const servicesHref = '/ypiresies';
 ---
-<header class="site-header">
+<header class="site-header" data-header>
   <div class="wrap header-inner">
     <a href="/" class="brand" aria-label={`${company.name} αρχική`}>
       <img class="brand__logo" src={company.logo} alt={`${company.name} λογότυπο`} width="42" height="42" />
@@ -40,13 +40,23 @@ const servicesHref = '/ypiresies';
       <Icon name="menu" size={24} stroke={2} />
     </button>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <nav aria-label="Πλοήγηση κινητού">
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu__bar wrap">
+      <a href="/" class="brand" data-nav-link aria-label={`${company.name} αρχική`}>
+        <img class="brand__logo" src={company.logo} alt="" width="42" height="42" />
+        <span class="brand__name">Safe<b>Cleaning</b></span>
+      </a>
+      <button class="nav-close" aria-label="Κλείσιμο μενού" data-nav-close>
+        <Icon name="close" size={26} stroke={2} />
+      </button>
+    </div>
+    <nav class="mobile-menu__nav wrap" aria-label="Πλοήγηση κινητού">
       {nav.map((item) => (
         item.href === servicesHref ? (
           <div class="m-acc">
             <button type="button" class="m-acc__btn" aria-expanded="false" data-acc-btn>
-              {item.label}<Icon name="chevron" size={18} stroke={2} class="m-acc__caret" />
+              {item.label}<Icon name="chevron" size={20} stroke={2} class="m-acc__caret" />
             </button>
             <div class="m-acc__panel" data-acc-panel>
               <a href={servicesHref} data-nav-link>Όλες οι υπηρεσίες</a>
@@ -68,39 +78,63 @@ const servicesHref = '/ypiresies';
 </header>
 
 <script>
-  const btn = document.querySelector('[data-nav-toggle]');
-  const menu = document.getElementById('mobileMenu');
-  function toggle() {
-    const open = menu.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  // Bind all header interactions. Re-runs on every View Transitions navigation
+  // (astro:page-load) because the header DOM is re-rendered each page.
+  function initHeader() {
+    const toggle = document.querySelector('[data-nav-toggle]');
+    const close = document.querySelector('[data-nav-close]');
+    const menu = document.getElementById('mobileMenu');
+    if (!menu) return;
+
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle('open', open);
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('menu-open', open);
+    };
+
+    toggle?.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
+    close?.addEventListener('click', () => setOpen(false));
+    menu.querySelectorAll('[data-nav-link]').forEach((a) =>
+      a.addEventListener('click', () => setOpen(false))
+    );
+
+    // Mobile services accordion
+    const accBtn = menu.querySelector('[data-acc-btn]');
+    const accPanel = menu.querySelector('[data-acc-panel]');
+    accBtn?.addEventListener('click', () => {
+      const open = accBtn.getAttribute('aria-expanded') === 'true';
+      accBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      accPanel?.classList.toggle('open', !open);
+    });
+
+    // Desktop dropdown: CSS handles hover; here we add tap (touch) + outside-close
+    const dd = document.querySelector('[data-nav-dd]');
+    const ddTrigger = document.querySelector('[data-dd-trigger]');
+    ddTrigger?.addEventListener('click', (e) => {
+      if (window.matchMedia('(hover: none)').matches && dd && !dd.classList.contains('open')) {
+        e.preventDefault();
+        dd.classList.add('open');
+        ddTrigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (dd && !dd.contains(e.target as Node)) {
+        dd.classList.remove('open');
+        ddTrigger?.setAttribute('aria-expanded', 'false');
+      }
+    });
   }
-  btn?.addEventListener('click', toggle);
-  document.querySelectorAll('[data-nav-link]').forEach((a) =>
-    a.addEventListener('click', () => menu.classList.remove('open'))
-  );
+  document.addEventListener('astro:page-load', initHeader);
 
-  // Mobile services accordion
-  const accBtn = document.querySelector('[data-acc-btn]');
-  const accPanel = document.querySelector('[data-acc-panel]');
-  accBtn?.addEventListener('click', () => {
-    const open = accBtn.getAttribute('aria-expanded') === 'true';
-    accBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
-    accPanel?.classList.toggle('open', !open);
-  });
-
-  // Desktop dropdown: open on hover via CSS; add click/keyboard toggle for touch + a11y
-  const dd = document.querySelector('[data-nav-dd]');
-  const ddTrigger = document.querySelector('[data-dd-trigger]');
-  ddTrigger?.addEventListener('click', (e) => {
-    // allow navigating to /ypiresies on a real click, but on coarse pointers
-    // (touch) first tap opens the menu instead of navigating
-    if (window.matchMedia('(hover: none)').matches && dd && !dd.classList.contains('open')) {
-      e.preventDefault();
-      dd.classList.add('open');
-      ddTrigger.setAttribute('aria-expanded', 'true');
-    }
-  });
-  document.addEventListener('click', (e) => {
-    if (dd && !dd.contains(e.target as Node)) { dd.classList.remove('open'); ddTrigger?.setAttribute('aria-expanded', 'false'); }
-  });
+  // Shrink-on-scroll — window-level, bound once across navigations.
+  if (!(window as any).__scHeaderScroll) {
+    (window as any).__scHeaderScroll = true;
+    const onScroll = () => {
+      const h = document.querySelector('[data-header]');
+      h?.classList.toggle('scrolled', window.scrollY > 16);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    document.addEventListener('astro:page-load', onScroll);
+  }
 </script>
