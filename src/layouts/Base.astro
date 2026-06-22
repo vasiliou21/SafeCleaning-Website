@@ -1,6 +1,5 @@
 ---
 import { company } from '../data/site.js';
-import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -62,7 +61,6 @@ const ld = {
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json" set:html={JSON.stringify(ld)} />
-  <ClientRouter />
 </head>
 <body>
   <Header />
@@ -72,14 +70,11 @@ const ld = {
   <Footer />
   <script>
     // Subtle scroll reveal for [data-reveal] elements.
-    // Re-runs after every View Transitions navigation via astro:page-load.
-    function initReveal() {
-      const els = document.querySelectorAll('[data-reveal]:not(.in)');
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduce || !('IntersectionObserver' in window)) {
-        els.forEach((el) => el.classList.add('in'));
-        return;
-      }
+    const els = document.querySelectorAll('[data-reveal]');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('in'));
+    } else {
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
@@ -93,7 +88,6 @@ const ld = {
       );
       els.forEach((el) => io.observe(el));
     }
-    document.addEventListener('astro:page-load', initReveal);
   </script>
 </body>
 </html>
