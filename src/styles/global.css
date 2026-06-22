@@ -262,6 +262,23 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
 .form__note { font-size: 0.8rem; color: var(--muted); text-align: center; }
 .hp { position: absolute; left: -9999px; }
 
+/* ── form confirmation ── */
+.thankyou { position: relative; overflow: hidden; background: var(--navy); }
+.thankyou::before, .thankyou::after { content: ''; position: absolute; border-radius: 50%; pointer-events: none; }
+.thankyou::before { width: 42rem; height: 42rem; top: -28rem; left: -19rem; background: rgba(127,208,207,0.12); }
+.thankyou::after { width: 34rem; height: 34rem; right: -20rem; bottom: -23rem; background: rgba(199,154,62,0.13); }
+.thankyou__inner { position: relative; z-index: 1; display: grid; place-items: center; min-height: 620px; padding-block: 80px; }
+.thankyou__card { width: 100%; max-width: 760px; padding: clamp(36px, 6vw, 64px); border-radius: 16px; background: #fff; text-align: center; box-shadow: 0 28px 80px -35px rgba(0,0,0,0.6); }
+.thankyou__mark { width: 62px; height: 62px; display: grid; place-items: center; margin: 0 auto 24px; border-radius: 50%; background: var(--bg-tint); color: var(--teal-dark); box-shadow: inset 0 0 0 1px rgba(42,138,138,0.2); }
+.thankyou .eyebrow { display: block; margin-bottom: 14px; }
+.thankyou h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 18px; }
+.thankyou__lead { max-width: 53ch; margin: 0 auto; font-size: 1.06rem; color: var(--body-txt); }
+.thankyou__steps { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 36px 0; text-align: left; }
+.thankyou__steps > div { padding: 18px 20px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.thankyou__steps span { display: block; margin-bottom: 6px; color: var(--gold); font-family: var(--serif); font-size: 1rem; }
+.thankyou__steps p { color: var(--ink); font-size: 0.92rem; line-height: 1.45; }
+.thankyou__actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
 /* ── footer ── */
 .footer { background: var(--navy-2); color: rgba(255,255,255,0.75); padding-block: 56px 28px; }
 .footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.12); }
@@ -411,6 +428,9 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
   .form { padding: 24px; }
   .form__row { grid-template-columns: 1fr; }
   .quote__grid { grid-template-columns: 1fr; gap: 36px; }
+  .thankyou__inner { min-height: 0; padding-block: 58px; }
+  .thankyou__steps { grid-template-columns: 1fr; gap: 0; }
+  .thankyou__steps > div + div { border-top: none; }
   .ctaband__inner { padding-block: 44px; }
 
   /* full-bleed service hero: shorter + tighter on phones */
