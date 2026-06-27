@@ -1,0 +1,80 @@
+---
+// GA4 + Google Consent Mode v2 + a lightweight cookie banner.
+// The Measurement ID is read from the PUBLIC_GA4_ID env var (set in Netlify),
+// NEVER hardcoded. If it's unset, this renders nothing — so analytics only goes
+// live once the ID exists in the host env, and there is never a second tag.
+const gaId = import.meta.env.PUBLIC_GA4_ID;
+---
+{gaId && (
+  <>
+    <!-- Consent Mode v2 defaults (deny until accepted), then load gtag -->
+    <script is:inline define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500,
+      });
+      try {
+        if (localStorage.getItem('sc-consent') === 'granted') {
+          gtag('consent', 'update', { analytics_storage: 'granted' });
+        }
+      } catch (e) {}
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+
+    <!-- Cookie consent banner -->
+    <div class="cc" id="cc" role="dialog" aria-label="Συγκατάθεση cookies" hidden>
+      <p class="cc__text">Χρησιμοποιούμε cookies για ανώνυμα στατιστικά επισκεψιμότητας, ώστε να βελτιώνουμε την ιστοσελίδα.</p>
+      <div class="cc__actions">
+        <button type="button" class="btn btn--ghost-light cc__btn" data-cc-decline>Άρνηση</button>
+        <button type="button" class="btn btn--light cc__btn" data-cc-accept>Αποδοχή</button>
+      </div>
+    </div>
+    <script is:inline>
+      (function () {
+        var el = document.getElementById('cc');
+        if (!el) return;
+        var stored = null;
+        try { stored = localStorage.getItem('sc-consent'); } catch (e) {}
+        if (!stored) el.hidden = false;
+        function choose(v) {
+          try { localStorage.setItem('sc-consent', v); } catch (e) {}
+          if (v === 'granted' && window.gtag) {
+            window.gtag('consent', 'update', { analytics_storage: 'granted' });
+          }
+          el.hidden = true;
+        }
+        el.querySelector('[data-cc-accept]').addEventListener('click', function () { choose('granted'); });
+        el.querySelector('[data-cc-decline]').addEventListener('click', function () { choose('denied'); });
+      })();
+    </script>
+
+    <style>
+      .cc {
+        position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 80;
+        max-width: 760px; margin-inline: auto;
+        display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+        background: var(--navy); color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px;
+        padding: 16px 20px; box-shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.6);
+      }
+      .cc[hidden] { display: none; }
+      .cc__text { font-size: 0.9rem; line-height: 1.5; flex: 1 1 280px; margin: 0; }
+      .cc__actions { display: flex; gap: 10px; flex-shrink: 0; }
+      .cc__btn { padding: 9px 18px; font-size: 0.9rem; }
+      @media (max-width: 760px) {
+        .cc { left: 10px; right: 10px; bottom: 64px; padding: 14px; }
+        .cc__actions { width: 100%; }
+        .cc__actions .cc__btn { flex: 1; justify-content: center; }
+        body.menu-open .cc { display: none; }
+      }
+    </style>
+  </>
+)}

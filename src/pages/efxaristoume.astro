@@ -35,4 +35,14 @@ import { company } from '../data/site.js';
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    // Form conversion: fire once the thank-you page (post-submit redirect) loads.
+    // No-op when analytics isn't configured (gtag undefined).
+    window.addEventListener('load', function () {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'generate_lead', { method: 'prosfora' });
+      }
+    });
+  </script>
 </Base>
