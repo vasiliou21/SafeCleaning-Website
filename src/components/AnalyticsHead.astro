@@ -1,0 +1,31 @@
+---
+// GA4 loader + Consent Mode v2 defaults. Lives in <head> (required for
+// Search Console's "Google Analytics" ownership-verification method, which
+// only scans the <head> section). The visible cookie banner UI lives in
+// Analytics.astro, rendered in <body>.
+const gaId = import.meta.env.PUBLIC_GA4_ID;
+---
+{gaId && (
+  <>
+    <script is:inline define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500,
+      });
+      try {
+        if (localStorage.getItem('sc-consent') === 'granted') {
+          gtag('consent', 'update', { analytics_storage: 'granted' });
+        }
+      } catch (e) {}
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+  </>
+)}

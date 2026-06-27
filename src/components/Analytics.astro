@@ -1,34 +1,11 @@
 ---
-// GA4 + Google Consent Mode v2 + a lightweight cookie banner.
-// The Measurement ID is read from the PUBLIC_GA4_ID env var (set in Netlify),
-// NEVER hardcoded. If it's unset, this renders nothing — so analytics only goes
-// live once the ID exists in the host env, and there is never a second tag.
+// Visible cookie-consent banner UI (lives in <body>). The GA4 loader +
+// Consent Mode v2 defaults live in AnalyticsHead.astro, rendered in <head>
+// (required for Search Console's "Google Analytics" verification method).
 const gaId = import.meta.env.PUBLIC_GA4_ID;
 ---
 {gaId && (
   <>
-    <!-- Consent Mode v2 defaults (deny until accepted), then load gtag -->
-    <script is:inline define:vars={{ gaId }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
-      window.gtag = gtag;
-      gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
-        wait_for_update: 500,
-      });
-      try {
-        if (localStorage.getItem('sc-consent') === 'granted') {
-          gtag('consent', 'update', { analytics_storage: 'granted' });
-        }
-      } catch (e) {}
-      gtag('js', new Date());
-      gtag('config', gaId);
-    </script>
-    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
-
     <!-- Cookie consent banner -->
     <div class="cc" id="cc" role="dialog" aria-label="Συγκατάθεση cookies" hidden>
       <p class="cc__text">Χρησιμοποιούμε cookies για ανώνυμα στατιστικά επισκεψιμότητας, ώστε να βελτιώνουμε την ιστοσελίδα.</p>
