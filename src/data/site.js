@@ -12,7 +12,7 @@ export const company = {
   phoneMobileHref: '+306980779494',
   phoneLandline: '210 661 6030',
   phoneLandlineHref: '+302106616030',
-  email: 't.crystalcleaning@gmail.com',
+  email: 'info@safecleaning.gr',
   address: 'Λεωφ. Μαραθώνος 56, Παλλήνη',
   postalCode: '153 49',
   region: 'Αττική',
