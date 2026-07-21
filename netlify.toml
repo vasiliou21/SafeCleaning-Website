@@ -12,74 +12,82 @@
   force = true
 
 # Legacy WordPress paths → new Astro routes (post-cutover SEO)
+# Netlify requires non-ASCII path segments to be percent-encoded in redirect rules.
+
+# /καθαρισμοί-πολυκατοικιών
 [[redirects]]
-  from = "/καθαρισμοί-πολυκατοικιών"
+  from = "/%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%AF-%CF%80%CE%BF%CE%BB%CF%85%CE%BA%CE%B1%CF%84%CE%BF%CE%B9%CE%BA%CE%B9%CF%8E%CE%BD"
   to = "/ypiresies/katharismoi-polykatoikion/"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/καθαρισμοί-πολυκατοικιών/"
+  from = "/%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%AF-%CF%80%CE%BF%CE%BB%CF%85%CE%BA%CE%B1%CF%84%CE%BF%CE%B9%CE%BA%CE%B9%CF%8E%CE%BD/"
   to = "/ypiresies/katharismoi-polykatoikion/"
   status = 301
   force = true
 
+# /αρχικοί-καθαρισμοί
 [[redirects]]
-  from = "/αρχικοί-καθαρισμοί"
+  from = "/%CE%B1%CF%81%CF%87%CE%B9%CE%BA%CE%BF%CE%AF-%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%AF"
   to = "/ypiresies/archikoi-katharismoi/"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/αρχικοί-καθαρισμοί/"
+  from = "/%CE%B1%CF%81%CF%87%CE%B9%CE%BA%CE%BF%CE%AF-%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%AF/"
   to = "/ypiresies/archikoi-katharismoi/"
   status = 301
   force = true
 
+# /επαγγελματικοί-χώροι
 [[redirects]]
-  from = "/επαγγελματικοί-χώροι"
+  from = "/%CE%B5%CF%80%CE%B1%CE%B3%CE%B3%CE%B5%CE%BB%CE%BC%CE%B1%CF%84%CE%B9%CE%BA%CE%BF%CE%AF-%CF%87%CF%8E%CF%81%CE%BF%CE%B9"
   to = "/ypiresies/epaggelmatikoi-choroi/"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/επαγγελματικοί-χώροι/"
+  from = "/%CE%B5%CF%80%CE%B1%CE%B3%CE%B3%CE%B5%CE%BB%CE%BC%CE%B1%CF%84%CE%B9%CE%BA%CE%BF%CE%AF-%CF%87%CF%8E%CF%81%CE%BF%CE%B9/"
   to = "/ypiresies/epaggelmatikoi-choroi/"
   status = 301
   force = true
 
+# /καθαρισμοί-κτιρίων
 [[redirects]]
-  from = "/καθαρισμοί-κτιρίων"
+  from = "/%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%AF-%CE%BA%CF%84%CE%B9%CF%81%CE%AF%CF%89%CE%BD"
   to = "/ypiresies/katharismoi-ktirion/"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/καθαρισμοί-κτιρίων/"
+  from = "/%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%AF-%CE%BA%CF%84%CE%B9%CF%81%CE%AF%CF%89%CE%BD/"
   to = "/ypiresies/katharismoi-ktirion/"
   status = 301
   force = true
 
+# /υπηρεσιες
 [[redirects]]
-  from = "/υπηρεσιες"
+  from = "/%CF%85%CF%80%CE%B7%CF%81%CE%B5%CF%83%CE%B9%CE%B5%CF%82"
   to = "/ypiresies/"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/υπηρεσιες/"
+  from = "/%CF%85%CF%80%CE%B7%CF%81%CE%B5%CF%83%CE%B9%CE%B5%CF%82/"
   to = "/ypiresies/"
   status = 301
   force = true
 
+# /επικοινωνια
 [[redirects]]
-  from = "/επικοινωνια"
+  from = "/%CE%B5%CF%80%CE%B9%CE%BA%CE%BF%CE%B9%CE%BD%CF%89%CE%BD%CE%B9%CE%B1"
   to = "/epikoinonia/"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/επικοινωνια/"
+  from = "/%CE%B5%CF%80%CE%B9%CE%BA%CE%BF%CE%B9%CE%BD%CF%89%CE%BD%CE%B9%CE%B1/"
   to = "/epikoinonia/"
   status = 301
   force = true
