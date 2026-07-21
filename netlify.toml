@@ -10,3 +10,76 @@
   to = "/"
   status = 301
   force = true
+
+# Legacy WordPress paths → new Astro routes (post-cutover SEO)
+[[redirects]]
+  from = "/καθαρισμοί-πολυκατοικιών"
+  to = "/ypiresies/katharismoi-polykatoikion/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/καθαρισμοί-πολυκατοικιών/"
+  to = "/ypiresies/katharismoi-polykatoikion/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/αρχικοί-καθαρισμοί"
+  to = "/ypiresies/archikoi-katharismoi/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/αρχικοί-καθαρισμοί/"
+  to = "/ypiresies/archikoi-katharismoi/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/επαγγελματικοί-χώροι"
+  to = "/ypiresies/epaggelmatikoi-choroi/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/επαγγελματικοί-χώροι/"
+  to = "/ypiresies/epaggelmatikoi-choroi/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/καθαρισμοί-κτιρίων"
+  to = "/ypiresies/katharismoi-ktirion/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/καθαρισμοί-κτιρίων/"
+  to = "/ypiresies/katharismoi-ktirion/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/υπηρεσιες"
+  to = "/ypiresies/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/υπηρεσιες/"
+  to = "/ypiresies/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/επικοινωνια"
+  to = "/epikoinonia/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/επικοινωνια/"
+  to = "/epikoinonia/"
+  status = 301
+  force = true
