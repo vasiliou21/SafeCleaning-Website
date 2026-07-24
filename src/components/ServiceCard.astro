@@ -2,14 +2,15 @@
 import Icon from './Icon.astro';
 const { service } = Astro.props;
 const href = `/ypiresies/${service.slug}`;
+const label = service.fullTitle ?? service.title;
 ---
 <article class="service">
-  <a class="service__img" href={href} aria-label={service.title}>
+  <a class="service__img" href={href} aria-label={label}>
     <img src={service.image} alt={service.imageAlt} loading="lazy" width="900" height="600" />
   </a>
   <div class="service__body">
     <span class="service__num">{service.num}</span>
-    <h3><a href={href}>{service.title}</a></h3>
+    <h3><a href={href}>{label}</a></h3>
     <p>{service.short}</p>
     <div class="service__tags">
       {service.tags.map((t) => <span>{t}</span>)}

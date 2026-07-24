@@ -19,7 +19,7 @@ const others = services.filter((s) => s.slug !== slug);
     <div class="wrap shero__inner">
       <p class="crumbs"><a href="/">Αρχική</a> / <a href="/ypiresies">Υπηρεσίες</a> / {service.title}</p>
       <span class="index">— Υπηρεσία {service.num}</span>
-      <h1>{service.title}</h1>
+      <h1>{service.fullTitle ?? service.title}</h1>
       <p class="shero__sub">{service.short}</p>
       <div class="shero__ctas">
         <a href="/epikoinonia" class="btn btn--light">Ζητήστε προσφορά</a>

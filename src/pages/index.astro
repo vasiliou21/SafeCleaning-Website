@@ -6,9 +6,12 @@ import ServiceCard from '../components/ServiceCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { company, services, reasons, steps } from '../data/site.js';
 
-const title = 'SafeCleaning — Επαγγελματικοί Καθαρισμοί στην Παλλήνη & Αττική';
+const title = 'Συνεργείο Καθαρισμού Παλλήνη & Αττική | SafeCleaning';
 const description =
-  'Οικογενειακή εταιρεία επαγγελματικού καθαρισμού στην Παλλήνη. Καθαρισμοί πολυκατοικιών, επαγγελματικών χώρων, κτιρίων & αρχικοί καθαρισμοί με οικολογικά προϊόντα. Δωρεάν αυτοψία & προσφορά.';
+  'Επαγγελματικό συνεργείο καθαρισμού στην Παλλήνη. Πολυκατοικίες, επαγγελματικοί χώροι & νεόδμητα. Δωρεάν αυτοψία & προσφορά.';
+const priorityServiceLinks = services.filter((s) =>
+  ['katharismoi-polykatoikion', 'archikoi-katharismoi'].includes(s.slug)
+);
 const iconFor = (i) => reasons[i].icon;
 ---
 <Base title={title} description={description} image="/images/hero.jpg">
@@ -18,7 +21,8 @@ const iconFor = (i) => reasons[i].icon;
       <div class="hero__grid">
         <div class="hero__content">
           <span class="eyebrow">Επαγγελματικοί καθαρισμοί · Παλλήνη, Αττική</span>
-          <h1>Καθαροί χώροι, με συνέπεια και αξιοπιστία</h1>
+          <h1>Συνεργείο καθαρισμού στην Παλλήνη & Αττική</h1>
+          <p class="hero__lead">Καθαροί χώροι, με συνέπεια και αξιοπιστία</p>
           <p class="hero__sub">
             Οικογενειακή εταιρεία καθαρισμού με έδρα την Παλλήνη. Αναλαμβάνουμε πολυκατοικίες,
             επαγγελματικούς χώρους και κτίρια σε όλη την Αττική, με οικολογικά προϊόντα και σταθερό πρόγραμμα.
@@ -53,7 +57,16 @@ const iconFor = (i) => reasons[i].icon;
         <p>Αναλαμβάνουμε κοινόχρηστους, επαγγελματικούς και κτιριακούς χώρους με σταθερό πρόγραμμα,
           σύγχρονο εξοπλισμό και οικολογικά προϊόντα καθαρισμού.</p>
       </div>
-      <div class="services" data-reveal data-delay="1">
+      <nav class="linkrows linkrows--compact" aria-label="Κύριες υπηρεσίες καθαρισμού" data-reveal data-delay="1">
+        {priorityServiceLinks.map((s) => (
+          <a href={`/ypiresies/${s.slug}`}>
+            <span class="n">{s.num}</span>
+            <span class="t">{s.title}</span>
+            <Icon name="arrow" size={22} class="a" />
+          </a>
+        ))}
+      </nav>
+      <div class="services" data-reveal data-delay="2">
         {services.map((s) => <ServiceCard service={s} />)}
       </div>
     </div>

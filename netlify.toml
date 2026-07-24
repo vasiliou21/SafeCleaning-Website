@@ -91,3 +91,117 @@
   to = "/epikoinonia/"
   status = 301
   force = true
+
+# ── Συμπλήρωμα legacy redirect map (2026-07-24) ──────────────────────────
+# Sweep 28 παραλλαγών (τόνοι × τελικό σίγμα × trailing slash) βρήκε 16 URLs
+# χωρίς redirect. Επιβεβαιωμένη απώλεια: μόνο το /υπηρεσιεσ/. Οι υπόλοιπες
+# μπαίνουν ως insurance για εξωτερικά links, χωρίς claim ανάκτησης κίνησης.
+
+# /υπηρεσιεσ  — ΕΠΙΒΕΒΑΙΩΜΕΝΟ ΚΕΝΟ: 404 με 18 GSC impressions (θέση 4,39).
+#   Το WordPress slug κυκλοφορεί στο index με τελικό σ (U+03C3), ενώ ο
+#   υπάρχων κανόνας πιο πάνω καλύπτει μόνο τη μορφή με ς (U+03C2).
+# /υπηρεσιεσ
+[[redirects]]
+  from = "/%CF%85%CF%80%CE%B7%CF%81%CE%B5%CF%83%CE%B9%CE%B5%CF%83"
+  to = "/ypiresies/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/%CF%85%CF%80%CE%B7%CF%81%CE%B5%CF%83%CE%B9%CE%B5%CF%83/"
+  to = "/ypiresies/"
+  status = 301
+  force = true
+
+# Τονισμένες/σίγμα παραλλαγές των ίδιων legacy slugs — προληπτικά.
+#   Χωρίς GSC evidence· μηδενικό ρίσκο, καλύπτουν εξωτερικά links.
+# /υπηρεσίες
+[[redirects]]
+  from = "/%CF%85%CF%80%CE%B7%CF%81%CE%B5%CF%83%CE%AF%CE%B5%CF%82"
+  to = "/ypiresies/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/%CF%85%CF%80%CE%B7%CF%81%CE%B5%CF%83%CE%AF%CE%B5%CF%82/"
+  to = "/ypiresies/"
+  status = 301
+  force = true
+
+# /υπηρεσίεσ
+[[redirects]]
+  from = "/%CF%85%CF%80%CE%B7%CF%81%CE%B5%CF%83%CE%AF%CE%B5%CF%83"
+  to = "/ypiresies/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/%CF%85%CF%80%CE%B7%CF%81%CE%B5%CF%83%CE%AF%CE%B5%CF%83/"
+  to = "/ypiresies/"
+  status = 301
+  force = true
+
+# /επικοινωνία
+[[redirects]]
+  from = "/%CE%B5%CF%80%CE%B9%CE%BA%CE%BF%CE%B9%CE%BD%CF%89%CE%BD%CE%AF%CE%B1"
+  to = "/epikoinonia/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/%CE%B5%CF%80%CE%B9%CE%BA%CE%BF%CE%B9%CE%BD%CF%89%CE%BD%CE%AF%CE%B1/"
+  to = "/epikoinonia/"
+  status = 301
+  force = true
+
+# /καθαρισμοι-πολυκατοικιων
+[[redirects]]
+  from = "/%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%B9-%CF%80%CE%BF%CE%BB%CF%85%CE%BA%CE%B1%CF%84%CE%BF%CE%B9%CE%BA%CE%B9%CF%89%CE%BD"
+  to = "/ypiresies/katharismoi-polykatoikion/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%B9-%CF%80%CE%BF%CE%BB%CF%85%CE%BA%CE%B1%CF%84%CE%BF%CE%B9%CE%BA%CE%B9%CF%89%CE%BD/"
+  to = "/ypiresies/katharismoi-polykatoikion/"
+  status = 301
+  force = true
+
+# /αρχικοι-καθαρισμοι
+[[redirects]]
+  from = "/%CE%B1%CF%81%CF%87%CE%B9%CE%BA%CE%BF%CE%B9-%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%B9"
+  to = "/ypiresies/archikoi-katharismoi/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/%CE%B1%CF%81%CF%87%CE%B9%CE%BA%CE%BF%CE%B9-%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%B9/"
+  to = "/ypiresies/archikoi-katharismoi/"
+  status = 301
+  force = true
+
+# /επαγγελματικοι-χωροι
+[[redirects]]
+  from = "/%CE%B5%CF%80%CE%B1%CE%B3%CE%B3%CE%B5%CE%BB%CE%BC%CE%B1%CF%84%CE%B9%CE%BA%CE%BF%CE%B9-%CF%87%CF%89%CF%81%CE%BF%CE%B9"
+  to = "/ypiresies/epaggelmatikoi-choroi/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/%CE%B5%CF%80%CE%B1%CE%B3%CE%B3%CE%B5%CE%BB%CE%BC%CE%B1%CF%84%CE%B9%CE%BA%CE%BF%CE%B9-%CF%87%CF%89%CF%81%CE%BF%CE%B9/"
+  to = "/ypiresies/epaggelmatikoi-choroi/"
+  status = 301
+  force = true
+
+# /καθαρισμοι-κτιριων
+[[redirects]]
+  from = "/%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%B9-%CE%BA%CF%84%CE%B9%CF%81%CE%B9%CF%89%CE%BD"
+  to = "/ypiresies/katharismoi-ktirion/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/%CE%BA%CE%B1%CE%B8%CE%B1%CF%81%CE%B9%CF%83%CE%BC%CE%BF%CE%B9-%CE%BA%CF%84%CE%B9%CF%81%CE%B9%CF%89%CE%BD/"
+  to = "/ypiresies/katharismoi-ktirion/"
+  status = 301
+  force = true

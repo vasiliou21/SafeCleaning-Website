@@ -101,6 +101,9 @@ export const services = [
     slug: 'epaggelmatikoi-choroi',
     num: '02',
     title: 'Επαγγελματικοί Χώροι',
+    // fullTitle (optional): πλήρες όνομα υπηρεσίας — H1 σελίδας + κάρτες
+    // homepage. Το `title` μένει σύντομο για menu, breadcrumbs και link rows.
+    fullTitle: 'Καθαρισμός Επαγγελματικών Χώρων',
     short:
       'Εσωτερικός και εξωτερικός καθαρισμός σε γραφεία, καταστήματα και επαγγελματικούς χώρους, εντός ή εκτός ωραρίου.',
     image: '/images/svc-epaggelmatikoi.jpg',
@@ -127,6 +130,7 @@ export const services = [
     slug: 'katharismoi-ktirion',
     num: '03',
     title: 'Καθαρισμοί Κτιρίων',
+    fullTitle: 'Καθαρισμοί Κτιρίων & Εγκαταστάσεων',
     short:
       'Ολοκληρωμένη φροντίδα κτιριακών εγκαταστάσεων κάθε χρήσης, με απολύμανση και αποστείρωση κάθε λεπτομέρειας.',
     image: '/images/svc-ktirion.jpg',
@@ -151,6 +155,7 @@ export const services = [
     slug: 'archikoi-katharismoi',
     num: '04',
     title: 'Αρχικοί Καθαρισμοί',
+    fullTitle: 'Αρχικοί Καθαρισμοί Νεόδμητων',
     short:
       'Εντατικός καθαρισμός σε νεόδμητους ή ανακαινισμένους χώρους, ώστε να παραδοθούν έτοιμοι προς χρήση.',
     image: '/images/svc-archikoi.jpg',

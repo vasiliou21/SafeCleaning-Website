@@ -152,6 +152,7 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
 .hero .eyebrow { color: #7fd0cf; margin-bottom: 22px; }
 .hero h1 { color: #fff; font-size: clamp(2.3rem, 4vw, 3.4rem); margin-bottom: 22px; }
 .hero__sub { font-size: 1.1rem; line-height: 1.6; color: rgba(255,255,255,0.82); max-width: 48ch; margin-bottom: 30px; }
+.hero__lead { font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.35rem); line-height: 1.45; color: rgba(255,255,255,0.9); max-width: 42ch; margin: 10px 0 14px; }
 .hero__ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
 .hero__assure { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 0.9rem; color: rgba(255,255,255,0.72); }
 .hero__assure span { display: inline-flex; align-items: center; gap: 7px; }
@@ -242,7 +243,7 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
 .quote { background: var(--navy); color: #fff; }
 .quote__grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: start; }
 .quote__intro .eyebrow { color: #7fd0cf; display: block; margin-bottom: 16px; }
-.quote__intro h2 { color: #fff; font-size: clamp(1.9rem, 3vw, 2.5rem); margin-bottom: 18px; }
+.quote__intro h1, .quote__intro h2 { color: #fff; font-size: clamp(1.9rem, 3vw, 2.5rem); margin-bottom: 18px; }
 .quote__intro p { color: rgba(255,255,255,0.8); font-size: 1.05rem; margin-bottom: 30px; }
 .quote__contacts { display: flex; flex-direction: column; gap: 16px; }
 .quote__contact { display: flex; align-items: center; gap: 14px; }
@@ -365,6 +366,8 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
 .linkrows a:hover .t { color: var(--teal-dark); }
 .linkrows .a { color: var(--muted); transition: transform 0.25s ease, color 0.2s ease; }
 .linkrows a:hover .a { transform: translateX(5px); color: var(--teal-dark); }
+.linkrows--compact { margin-bottom: 36px; }
+.linkrows--compact a { padding-block: 20px; }
 
 @media (max-width: 860px) {
   .intro-grid { grid-template-columns: 1fr; gap: 22px; }
@@ -396,6 +399,7 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
       rgba(13,32,48,0.88) 100%);
   }
   .hero__sub { color: rgba(255,255,255,0.92); }
+  .hero__lead { color: rgba(255,255,255,0.95); }
   .hero__assure { color: rgba(255,255,255,0.85); }
   .split { grid-template-columns: 1fr; gap: 48px; }
   .split__media .badge { left: 16px; bottom: 16px; }
