@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import { company } from '../data/site.js';
+import { TRACK_LOC, trackContactAttrs } from '../data/tracking.js';
 ---
 <Base title="Ευχαριστούμε — SafeCleaning" noindex={true}>
   <section class="thankyou">
@@ -28,7 +29,11 @@ import { company } from '../data/site.js';
         </div>
         <div class="thankyou__actions">
           <a href="/" class="btn btn--outline">Επιστροφή στην αρχική</a>
-          <a href={`tel:${company.phoneMobileHref}`} class="btn btn--solid">
+          <a
+            href={`tel:${company.phoneMobileHref}`}
+            class="btn btn--solid"
+            {...trackContactAttrs(TRACK_LOC.THANK_YOU, { phoneType: 'mobile' })}
+          >
             <Icon name="phone" size={18} stroke={2} /> Κλήση τώρα
           </a>
         </div>

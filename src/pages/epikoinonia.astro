@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import { company } from '../data/site.js';
+import { TRACK_LOC, trackContactAttrs } from '../data/tracking.js';
 
 const title = 'Επικοινωνία — Ζητήστε Δωρεάν Προσφορά | SafeCleaning';
 const description =
@@ -18,15 +19,15 @@ const description =
           <p>Συμπληρώστε τα στοιχεία σας και θα επικοινωνήσουμε άμεσα για να κανονίσουμε αυτοψία και
             να σας δώσουμε προσφορά, χωρίς καμία επιπλέον χρέωση.</p>
           <div class="quote__contacts">
-            <a class="quote__contact" href={`tel:${company.phoneMobileHref}`}>
+            <a class="quote__contact" href={`tel:${company.phoneMobileHref}`} {...trackContactAttrs(TRACK_LOC.CONTACT_PAGE, { phoneType: 'mobile' })}>
               <Icon name="phone" size={20} />
               <div><b>{company.phoneMobile}</b><span>Κινητό · άμεση εξυπηρέτηση</span></div>
             </a>
-            <a class="quote__contact" href={`tel:${company.phoneLandlineHref}`}>
+            <a class="quote__contact" href={`tel:${company.phoneLandlineHref}`} {...trackContactAttrs(TRACK_LOC.CONTACT_PAGE, { phoneType: 'landline' })}>
               <Icon name="phone" size={20} />
               <div><b>{company.phoneLandline}</b><span>Σταθερό τηλέφωνο</span></div>
             </a>
-            <a class="quote__contact" href={`mailto:${company.email}`}>
+            <a class="quote__contact" href={`mailto:${company.email}`} {...trackContactAttrs(TRACK_LOC.CONTACT_PAGE)}>
               <Icon name="mail" size={20} />
               <div><b>{company.email}</b><span>Email επικοινωνίας</span></div>
             </a>

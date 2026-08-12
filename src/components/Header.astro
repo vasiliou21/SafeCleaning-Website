@@ -1,5 +1,6 @@
 ---
 import { company, nav, services } from '../data/site.js';
+import { TRACK_LOC, trackContactAttrs } from '../data/tracking.js';
 import Icon from './Icon.astro';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href) => (href === '/' ? path === '/' : path.startsWith(href));
@@ -33,7 +34,11 @@ const servicesHref = '/ypiresies';
       ))}
     </nav>
     <div class="header-cta">
-      <a href={`tel:${company.phoneMobileHref}`} class="header-phone">{company.phoneMobile}<span>Άμεση εξυπηρέτηση</span></a>
+      <a
+        href={`tel:${company.phoneMobileHref}`}
+        class="header-phone"
+        {...trackContactAttrs(TRACK_LOC.HEADER_DESKTOP, { phoneType: 'mobile' })}
+      >{company.phoneMobile}<span>Άμεση εξυπηρέτηση</span></a>
       <a href="/epikoinonia" class="btn btn--solid">Ζητήστε Προσφορά</a>
     </div>
     <button class="nav-toggle" aria-label="Άνοιγμα μενού" aria-expanded="false" data-nav-toggle>
@@ -69,7 +74,12 @@ const servicesHref = '/ypiresies';
           <a href={item.href} data-nav-link>{item.label}</a>
         )
       ))}
-      <a href={`tel:${company.phoneMobileHref}`} class="m-phone" data-nav-link>
+      <a
+        href={`tel:${company.phoneMobileHref}`}
+        class="m-phone"
+        data-nav-link
+        {...trackContactAttrs(TRACK_LOC.HEADER_MOBILE_MENU, { phoneType: 'mobile' })}
+      >
         <Icon name="phone" size={18} stroke={2} /> {company.phoneMobile}
       </a>
       <a href="/epikoinonia" class="btn btn--solid" data-nav-link>Ζητήστε Προσφορά</a>

@@ -1,0 +1,78 @@
+---
+// Site-wide tel:/mailto: click tracking for GA4.
+// Requires AnalyticsHead (gtag) + explicit data-track-location on links.
+// Capture-phase listener so events fire before mobile navigates away on tel:.
+import { company } from '../data/site.js';
+
+const gaId = import.meta.env.PUBLIC_GA4_ID;
+---
+{gaId && (
+  <script
+    is:inline
+    define:vars={{
+      phoneMobileHref: company.phoneMobileHref,
+      phoneLandlineHref: company.phoneLandlineHref,
+    }}
+  >
+    (function () {
+      function digits(href) {
+        return (href || '').replace(/\D/g, '');
+      }
+
+      function phoneType(link, href) {
+        var explicit = link.getAttribute('data-track-phone');
+        if (explicit === 'mobile' || explicit === 'landline') return explicit;
+        var d = digits(href);
+        var mobile = digits(phoneMobileHref);
+        var landline = digits(phoneLandlineHref);
+        if (d && mobile && d.indexOf(mobile.slice(-10)) !== -1) return 'mobile';
+        if (d && landline && d.indexOf(landline.slice(-10)) !== -1) return 'landline';
+        return 'unknown';
+      }
+
+      /** DOM fallbacks when a link lacks data-track-location (prefer explicit attrs). */
+      function resolveLocation(link) {
+        var loc = link.getAttribute('data-track-location');
+        if (loc) return loc;
+        if (link.closest('.callbar')) return 'sticky_bar';
+        if (link.classList.contains('header-phone')) return 'header_desktop';
+        if (link.classList.contains('m-phone')) return 'header_mobile_menu';
+        if (link.closest('.hero__ctas')) return 'hero_home';
+        if (link.closest('.shero__ctas')) return 'hero_service';
+        if (link.closest('.ctaband')) return 'cta_band';
+        if (link.closest('.quote__contacts')) return 'contact_page';
+        if (link.closest('.footer')) return 'footer';
+        if (link.closest('.thankyou__actions')) return 'thank_you';
+        return 'unknown';
+      }
+
+      function fire(eventName, params) {
+        if (typeof window.gtag !== 'function') return;
+        window.gtag('event', eventName, params);
+      }
+
+      document.addEventListener(
+        'click',
+        function (e) {
+          var target = e.target;
+          if (!target || !target.closest) return;
+          var link = target.closest('a[href^="tel:"], a[href^="mailto:"]');
+          if (!link) return;
+
+          var href = link.getAttribute('href') || '';
+          var params = {
+            link_location: resolveLocation(link),
+            page_path: window.location.pathname,
+          };
+
+          if (href.indexOf('tel:') === 0) {
+            fire('phone_click', Object.assign({}, params, { phone_type: phoneType(link, href) }));
+          } else if (href.indexOf('mailto:') === 0) {
+            fire('email_click', params);
+          }
+        },
+        true
+      );
+    })();
+  </script>
+)}

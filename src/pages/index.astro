@@ -5,6 +5,7 @@ import TrustStrip from '../components/TrustStrip.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { company, services, reasons, steps } from '../data/site.js';
+import { TRACK_LOC, trackContactAttrs } from '../data/tracking.js';
 
 const title = 'Συνεργείο Καθαρισμού Παλλήνη & Αττική | SafeCleaning';
 const description =
@@ -29,7 +30,11 @@ const iconFor = (i) => reasons[i].icon;
           </p>
           <div class="hero__ctas">
             <a href="/epikoinonia" class="btn btn--light">Ζητήστε Προσφορά</a>
-            <a href={`tel:${company.phoneMobileHref}`} class="btn btn--ghost-light">
+            <a
+              href={`tel:${company.phoneMobileHref}`}
+              class="btn btn--ghost-light"
+              {...trackContactAttrs(TRACK_LOC.HERO_HOME, { phoneType: 'mobile' })}
+            >
               <Icon name="phone" size={18} stroke={2} /> Καλέστε μας
             </a>
           </div>

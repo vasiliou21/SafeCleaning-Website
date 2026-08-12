@@ -1,5 +1,6 @@
 ---
 import { company } from '../data/site.js';
+import { TRACK_LOC, trackContactAttrs } from '../data/tracking.js';
 import Icon from './Icon.astro';
 const {
   title = 'Ζητήστε δωρεάν αυτοψία για τον χώρο σας',
@@ -14,7 +15,11 @@ const {
     </div>
     <div class="ctaband__actions">
       <a href="/epikoinonia" class="btn btn--light">Ζητήστε Προσφορά</a>
-      <a href={`tel:${company.phoneMobileHref}`} class="btn btn--ghost-light">
+      <a
+        href={`tel:${company.phoneMobileHref}`}
+        class="btn btn--ghost-light"
+        {...trackContactAttrs(TRACK_LOC.CTA_BAND, { phoneType: 'mobile' })}
+      >
         <Icon name="phone" size={18} stroke={2} /> {company.phoneMobile}
       </a>
     </div>

@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { company, services, getService } from '../../data/site.js';
+import { TRACK_LOC, trackContactAttrs } from '../../data/tracking.js';
 
 export function getStaticPaths() {
   return services.map((s) => ({ params: { slug: s.slug } }));
@@ -23,7 +24,11 @@ const others = services.filter((s) => s.slug !== slug);
       <p class="shero__sub">{service.short}</p>
       <div class="shero__ctas">
         <a href="/epikoinonia" class="btn btn--light">Ζητήστε προσφορά</a>
-        <a href={`tel:${company.phoneMobileHref}`} class="btn btn--ghost-light">
+        <a
+          href={`tel:${company.phoneMobileHref}`}
+          class="btn btn--ghost-light"
+          {...trackContactAttrs(TRACK_LOC.HERO_SERVICE, { phoneType: 'mobile' })}
+        >
           <Icon name="phone" size={18} stroke={2} /> {company.phoneMobile}
         </a>
       </div>
