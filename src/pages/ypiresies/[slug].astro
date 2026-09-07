@@ -13,7 +13,9 @@ const { slug } = Astro.params;
 const service = getService(slug)!;
 const others = services.filter((s) => s.slug !== slug);
 const isProfessionalSpaces = service.slug === 'epaggelmatikoi-choroi';
-const serviceCtaLabel = isProfessionalSpaces ? 'Κλείστε δωρεάν αυτοψία' : 'Ζητήστε προσφορά';
+const isApartmentBlocks = service.slug === 'katharismoi-polykatoikion';
+const isInspectionFocused = isProfessionalSpaces || isApartmentBlocks;
+const serviceCtaLabel = isInspectionFocused ? 'Κλείστε δωρεάν αυτοψία' : 'Ζητήστε προσφορά';
 ---
 <Base title={service.metaTitle} description={service.metaDescription} image={service.image}>
   <!-- HERO: full-bleed photo -->
@@ -34,7 +36,7 @@ const serviceCtaLabel = isProfessionalSpaces ? 'Κλείστε δωρεάν αυ
           <Icon name="phone" size={18} stroke={2} /> {company.phoneMobile}
         </a>
       </div>
-      {isProfessionalSpaces && (
+      {isInspectionFocused && (
         <p class="shero__note"><Icon name="check" size={17} stroke={2} /> Χωρίς χρέωση και χωρίς δέσμευση.</p>
       )}
     </div>
@@ -161,6 +163,95 @@ const serviceCtaLabel = isProfessionalSpaces ? 'Κλείστε δωρεάν αυ
     </>
   )}
 
+  {isApartmentBlocks && (
+    <>
+      <!-- APARTMENT BLOCKS: clarify the value for residents and managers -->
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">Καθαρισμοί πολυκατοικιών</span>
+            <h2>Οι κοινόχρηστοι χώροι αξίζουν σταθερή φροντίδα</h2>
+            <p>Από την είσοδο μέχρι το κλιμακοστάσιο, οργανώνουμε ένα πρόγραμμα που ταιριάζει στις ανάγκες της δικής σας πολυκατοικίας.</p>
+          </div>
+          <div class="space-cards">
+            <article class="space-card" data-reveal>
+              <Icon name="building" size={24} stroke={1.7} />
+              <h3>Είσοδοι &amp; κλιμακοστάσια</h3>
+              <p>Σκούπισμα και σφουγγάρισμα σε σκάλες και διαδρόμους, για μια καθαρή πρώτη εικόνα κάθε μέρα.</p>
+            </article>
+            <article class="space-card" data-reveal data-delay="1">
+              <Icon name="check" size={24} stroke={1.7} />
+              <h3>Ασανσέρ &amp; σημεία επαφής</h3>
+              <p>Φροντίδα για ασανσέρ, κουπαστές, πόρτες εισόδου, τζάμια, καθρέπτες και διακόπτες.</p>
+            </article>
+            <article class="space-card" data-reveal data-delay="2">
+              <Icon name="target" size={24} stroke={1.7} />
+              <h3>Κοινόχρηστοι &amp; εξωτερικοί χώροι</h3>
+              <p>Καθαρισμός διαδρόμων, πυλών και βασική φροντίδα του εξωτερικού χώρου της πολυκατοικίας.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- INSPECTION JOURNEY: use the verified, free-inspection process -->
+      <section class="section section--soft">
+        <div class="wrap">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">Από την αυτοψία στο πρόγραμμα</span>
+            <h2>Ξεκινάμε βλέποντας τη δική σας πολυκατοικία</h2>
+            <p>Η δωρεάν αυτοψία μάς επιτρέπει να προτείνουμε ένα πρόγραμμα καθαρισμού προσαρμοσμένο στο κτίριο και τους κοινόχρηστους χώρους του.</p>
+          </div>
+          <ol class="inspection-steps">
+            <li data-reveal>
+              <span>01</span>
+              <div><h3>Μιλάμε για την πολυκατοικία</h3><p>Μας περιγράφετε το κτίριο, τους χώρους και όσα θέλετε να καλύπτει ο καθαρισμός.</p></div>
+            </li>
+            <li data-reveal data-delay="1">
+              <span>02</span>
+              <div><h3>Κάνουμε δωρεάν αυτοψία</h3><p>Βλέπουμε από κοντά τις ανάγκες του χώρου, χωρίς χρέωση και χωρίς δέσμευση.</p></div>
+            </li>
+            <li data-reveal data-delay="2">
+              <span>03</span>
+              <div><h3>Συμφωνούμε το πρόγραμμα</h3><p>Προτείνουμε τη συχνότητα και τις εργασίες που ταιριάζουν στις ανάγκες της πολυκατοικίας σας.</p></div>
+            </li>
+          </ol>
+          <div class="inspection-cta" data-reveal>
+            <a href="/epikoinonia" class="btn btn--solid">Να δούμε την πολυκατοικία σας από κοντά</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ: answer the service questions already supported by the current copy -->
+      <section class="section">
+        <div class="wrap faq-layout">
+          <div class="faq-layout__intro" data-reveal>
+            <span class="eyebrow">Συχνές ερωτήσεις</span>
+            <h2>Χρήσιμα πριν ζητήσετε προσφορά</h2>
+            <p>Η αυτοψία είναι ο πιο σωστός τρόπος να δούμε τι χρειάζεται πραγματικά το δικό σας κτίριο.</p>
+          </div>
+          <div class="faq-list" data-reveal data-delay="1">
+            <details open>
+              <summary>Πόσο συχνά μπορεί να γίνεται ο καθαρισμός;</summary>
+              <p>Μπορείτε να επιλέξετε καθαρισμό μία, δύο ή περισσότερες φορές την εβδομάδα, ανάλογα με το μέγεθος και τις ανάγκες της πολυκατοικίας.</p>
+            </details>
+            <details>
+              <summary>Τι μπορεί να περιλαμβάνει το πρόγραμμα;</summary>
+              <p>Το πρόγραμμα μπορεί να καλύπτει σκάλες, διαδρόμους, ασανσέρ, εισόδους, τζάμια, κουπαστές και βασικούς εξωτερικούς κοινόχρηστους χώρους.</p>
+            </details>
+            <details>
+              <summary>Χρεώνεται η αυτοψία;</summary>
+              <p>Η αυτοψία και η προσφορά γίνονται χωρίς χρέωση και χωρίς δέσμευση.</p>
+            </details>
+            <details>
+              <summary>Εξυπηρετείτε την Παλλήνη και την ευρύτερη Αττική;</summary>
+              <p>Ναι. Η SafeCleaning έχει έδρα την Παλλήνη και εξυπηρετεί την ευρύτερη Αττική.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </>
+  )}
+
   <!-- STATEMENT band (brand refrain) -->
   <section class="statement">
     <div class="wrap">
@@ -190,8 +281,8 @@ const serviceCtaLabel = isProfessionalSpaces ? 'Κλείστε δωρεάν αυ
   </section>
 
   <CtaBand
-    title={isProfessionalSpaces ? 'Ξεκινήστε με δωρεάν αυτοψία για τον επαγγελματικό σας χώρο' : 'Έτοιμοι να ξεκινήσουμε;'}
+    title={isProfessionalSpaces ? 'Ξεκινήστε με δωρεάν αυτοψία για τον επαγγελματικό σας χώρο' : isApartmentBlocks ? 'Ξεκινήστε με δωρεάν αυτοψία για την πολυκατοικία σας' : 'Έτοιμοι να ξεκινήσουμε;'}
     text="Κλείστε δωρεάν αυτοψία για τον χώρο σας — σας δίνουμε προσφορά χωρίς δέσμευση."
-    actionText={isProfessionalSpaces ? 'Κλείστε δωρεάν αυτοψία' : undefined}
+    actionText={isInspectionFocused ? 'Κλείστε δωρεάν αυτοψία' : undefined}
   />
 </Base>
