@@ -12,6 +12,8 @@ export function getStaticPaths() {
 const { slug } = Astro.params;
 const service = getService(slug)!;
 const others = services.filter((s) => s.slug !== slug);
+const isProfessionalSpaces = service.slug === 'epaggelmatikoi-choroi';
+const serviceCtaLabel = isProfessionalSpaces ? 'Κλείστε δωρεάν αυτοψία' : 'Ζητήστε προσφορά';
 ---
 <Base title={service.metaTitle} description={service.metaDescription} image={service.image}>
   <!-- HERO: full-bleed photo -->
@@ -23,7 +25,7 @@ const others = services.filter((s) => s.slug !== slug);
       <h1>{service.fullTitle ?? service.title}</h1>
       <p class="shero__sub">{service.short}</p>
       <div class="shero__ctas">
-        <a href="/epikoinonia" class="btn btn--light">Ζητήστε προσφορά</a>
+        <a href="/epikoinonia" class="btn btn--light">{serviceCtaLabel}</a>
         <a
           href={`tel:${company.phoneMobileHref}`}
           class="btn btn--ghost-light"
@@ -32,6 +34,9 @@ const others = services.filter((s) => s.slug !== slug);
           <Icon name="phone" size={18} stroke={2} /> {company.phoneMobile}
         </a>
       </div>
+      {isProfessionalSpaces && (
+        <p class="shero__note"><Icon name="check" size={17} stroke={2} /> Χωρίς χρέωση και χωρίς δέσμευση.</p>
+      )}
     </div>
   </section>
 
@@ -56,7 +61,7 @@ const others = services.filter((s) => s.slug !== slug);
           <span class="eyebrow">Τι περιλαμβάνει</span>
           <h2>Αναλυτικά οι εργασίες</h2>
           <p>Κάθε πρόγραμμα προσαρμόζεται στον χώρο σας. Η αυτοψία και η προσφορά γίνονται χωρίς χρέωση.</p>
-          <a href="/epikoinonia" class="btn btn--solid">Ζητήστε προσφορά</a>
+          <a href="/epikoinonia" class="btn btn--solid">{serviceCtaLabel}</a>
         </aside>
         <ul class="checklist checklist--grid" data-reveal data-delay="1">
           {service.tasks.map((t) => (
@@ -66,6 +71,95 @@ const others = services.filter((s) => s.slug !== slug);
       </div>
     </div>
   </section>
+
+  {isProfessionalSpaces && (
+    <>
+      <!-- PROFESSIONAL SPACES: clarify scope without assuming unverified operations -->
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">Καθαρισμός για επιχειρήσεις</span>
+            <h2>Ο χώρος σας έχει τις δικές του ανάγκες</h2>
+            <p>Από το γραφείο έως το κατάστημα, ξεκινάμε από τον τρόπο που λειτουργεί ο χώρος σας και προτείνουμε την κατάλληλη φροντίδα.</p>
+          </div>
+          <div class="space-cards">
+            <article class="space-card" data-reveal>
+              <Icon name="building" size={24} stroke={1.7} />
+              <h3>Γραφεία</h3>
+              <p>Καθαριότητα σε θέσεις εργασίας, κοινόχρηστα σημεία, χώρους υγιεινής και κουζίνα.</p>
+            </article>
+            <article class="space-card" data-reveal data-delay="1">
+              <Icon name="target" size={24} stroke={1.7} />
+              <h3>Καταστήματα</h3>
+              <p>Φροντίδα για έναν καθαρό και προσεγμένο χώρο που υποδέχεται καθημερινά πελάτες.</p>
+            </article>
+            <article class="space-card" data-reveal data-delay="2">
+              <Icon name="check" size={24} stroke={1.7} />
+              <h3>Επαγγελματικοί χώροι</h3>
+              <p>Πρόγραμμα που προσαρμόζεται στο μέγεθος, τις απαιτήσεις και το ωράριο της επιχείρησής σας.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- INSPECTION JOURNEY: the page's primary conversion path -->
+      <section class="section section--soft">
+        <div class="wrap">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">Από την αυτοψία στο πλάνο</span>
+            <h2>Πριν από την προσφορά, βλέπουμε τον χώρο σας από κοντά</h2>
+            <p>Η δωρεάν αυτοψία μάς βοηθά να κατανοήσουμε τι χρειάζεται πραγματικά η επιχείρησή σας.</p>
+          </div>
+          <ol class="inspection-steps">
+            <li data-reveal>
+              <span>01</span>
+              <div><h3>Μιλάμε για τις ανάγκες σας</h3><p>Μας περιγράφετε τον χώρο και τον τρόπο που θέλετε να εξυπηρετηθείτε.</p></div>
+            </li>
+            <li data-reveal data-delay="1">
+              <span>02</span>
+              <div><h3>Κάνουμε δωρεάν αυτοψία</h3><p>Καταγράφουμε τα βασικά σημεία του χώρου, χωρίς χρέωση και χωρίς δέσμευση.</p></div>
+            </li>
+            <li data-reveal data-delay="2">
+              <span>03</span>
+              <div><h3>Λαμβάνετε προσαρμοσμένη προσφορά</h3><p>Σας προτείνουμε ένα πλάνο καθαρισμού που ταιριάζει στις ανάγκες και το ωράριό σας.</p></div>
+            </li>
+          </ol>
+          <div class="inspection-cta" data-reveal>
+            <a href="/epikoinonia" class="btn btn--solid">Να δούμε τον χώρο σας από κοντά</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ: answer the four verified, high-intent questions without invented claims -->
+      <section class="section">
+        <div class="wrap faq-layout">
+          <div class="faq-layout__intro" data-reveal>
+            <span class="eyebrow">Συχνές ερωτήσεις</span>
+            <h2>Χρήσιμα πριν ζητήσετε προσφορά</h2>
+            <p>Αν έχετε κάτι πιο συγκεκριμένο στο μυαλό σας, η αυτοψία είναι ο πιο σωστός τρόπος να το συζητήσουμε.</p>
+          </div>
+          <div class="faq-list" data-reveal data-delay="1">
+            <details open>
+              <summary>Σε ποιους επαγγελματικούς χώρους απευθύνεστε;</summary>
+              <p>Αναλαμβάνουμε καθαρισμό σε γραφεία, καταστήματα και επαγγελματικούς χώρους κάθε είδους.</p>
+            </details>
+            <details>
+              <summary>Μπορεί ο καθαρισμός να γίνεται εκτός ωραρίου;</summary>
+              <p>Ναι. Ο προγραμματισμός προσαρμόζεται στο ωράριο της επιχείρησής σας, ώστε η εξυπηρέτηση να ταιριάζει στη λειτουργία του χώρου.</p>
+            </details>
+            <details>
+              <summary>Χρεώνεται η αυτοψία;</summary>
+              <p>Η αυτοψία και η προσφορά γίνονται χωρίς χρέωση και χωρίς δέσμευση.</p>
+            </details>
+            <details>
+              <summary>Τι καθορίζει την προσφορά;</summary>
+              <p>Η προσφορά διαμορφώνεται ανάλογα με το μέγεθος του χώρου, τις ανάγκες καθαρισμού και το ωράριο της επιχείρησής σας.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </>
+  )}
 
   <!-- STATEMENT band (brand refrain) -->
   <section class="statement">
@@ -95,5 +189,9 @@ const others = services.filter((s) => s.slug !== slug);
     </div>
   </section>
 
-  <CtaBand title="Έτοιμοι να ξεκινήσουμε;" text="Κλείστε δωρεάν αυτοψία για τον χώρο σας — σας δίνουμε προσφορά χωρίς δέσμευση." />
+  <CtaBand
+    title={isProfessionalSpaces ? 'Ξεκινήστε με δωρεάν αυτοψία για τον επαγγελματικό σας χώρο' : 'Έτοιμοι να ξεκινήσουμε;'}
+    text="Κλείστε δωρεάν αυτοψία για τον χώρο σας — σας δίνουμε προσφορά χωρίς δέσμευση."
+    actionText={isProfessionalSpaces ? 'Κλείστε δωρεάν αυτοψία' : undefined}
+  />
 </Base>

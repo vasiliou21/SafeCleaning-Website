@@ -5,6 +5,8 @@ import Icon from './Icon.astro';
 const {
   title = 'Ζητήστε δωρεάν αυτοψία για τον χώρο σας',
   text = 'Επικοινωνήστε μαζί μας και θα σας δώσουμε προσφορά χωρίς καμία επιπλέον χρέωση.',
+  actionText = 'Ζητήστε Προσφορά',
+  actionHref = '/epikoinonia',
 } = Astro.props;
 ---
 <section class="ctaband">
@@ -14,7 +16,7 @@ const {
       <p>{text}</p>
     </div>
     <div class="ctaband__actions">
-      <a href="/epikoinonia" class="btn btn--light">Ζητήστε Προσφορά</a>
+      <a href={actionHref} class="btn btn--light">{actionText}</a>
       <a
         href={`tel:${company.phoneMobileHref}`}
         class="btn btn--ghost-light"
