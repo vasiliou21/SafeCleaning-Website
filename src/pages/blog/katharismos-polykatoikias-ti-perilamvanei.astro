@@ -1,0 +1,224 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { company } from '../../data/site.js';
+
+const title = 'Καθαρισμός Πολυκατοικίας: Τι Περιλαμβάνει, Συχνότητα & Κόστος | SafeCleaning';
+const description = 'Τι περιλαμβάνει ο καθαρισμός πολυκατοικίας, κάθε πότε πρέπει να γίνεται και τι επηρεάζει το μηνιαίο κόστος. Οδηγός για διαχειριστές στην Παλλήνη και την Αττική.';
+const articleUrl = 'https://safecleaning.gr/blog/katharismos-polykatoikias-ti-perilamvanei/';
+const faq = [
+  { question: 'Κάθε πότε πρέπει να καθαρίζεται μια πολυκατοικία;', answer: 'Στις περισσότερες πολυκατοικίες η βάση είναι μία ή δύο επισκέψεις την εβδομάδα. Η σωστή συχνότητα εξαρτάται από τα διαμερίσματα, τους ορόφους, την καθημερινή κίνηση και τους κοινόχρηστους χώρους.' },
+  { question: 'Τι περιλαμβάνει ο τακτικός καθαρισμός πολυκατοικίας;', answer: 'Συνήθως περιλαμβάνει την είσοδο, τις σκάλες, τα πλατύσκαλα, τους διαδρόμους, το ασανσέρ, τις κουπαστές και τα σημεία συχνής επαφής. Πυλωτή, υπόγειο και τζάμια εντάσσονται ανάλογα με τη συμφωνία.' },
+  { question: 'Περιλαμβάνονται τα καθαριστικά και ο εξοπλισμός;', answer: 'Αυτό πρέπει να αναφέρεται καθαρά στη γραπτή προσφορά. Η αυτοψία βοηθά να συμφωνηθούν από πριν τα υλικά, ο εξοπλισμός και τυχόν ειδικές εργασίες.' },
+  { question: 'Πώς υπολογίζεται η τιμή καθαρισμού πολυκατοικίας;', answer: 'Η τιμή επηρεάζεται από τους ορόφους και τις εισόδους, τη συχνότητα, την επιφάνεια των κοινόχρηστων χώρων, την κατάσταση του κτιρίου και τις πρόσθετες εργασίες. Για αυτό χρειάζεται αυτοψία πριν από μια ακριβή προσφορά.' },
+];
+const articleLd = {
+  '@context': 'https://schema.org', '@type': 'Article',
+  headline: 'Καθαρισμός πολυκατοικίας: τι περιλαμβάνει, κάθε πότε γίνεται και πόσο κοστίζει',
+  description, author: { '@type': 'Organization', name: company.name },
+  publisher: { '@type': 'Organization', name: company.name, logo: { '@type': 'ImageObject', url: 'https://safecleaning.gr/images/logo.png' } },
+  image: 'https://safecleaning.gr/images/blog-polykatoikia-hero.png',
+  mainEntityOfPage: articleUrl, inLanguage: 'el-GR',
+};
+const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((item) => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } })) };
+---
+<Base title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+
+  <header class="guide-hero">
+    <img class="guide-hero__image" src="/images/blog-polykatoikia-hero.png" alt="Καθαρή είσοδος και κλιμακοστάσιο σύγχρονης πολυκατοικίας" width="1672" height="941" fetchpriority="high" />
+    <div class="guide-hero__shade"></div>
+    <div class="wrap guide-hero__content">
+      <p class="crumbs"><a href="/">Αρχική</a> / <a href="/blog">Οδηγός</a> / Καθαρισμός πολυκατοικίας</p>
+      <p class="guide-kicker">Οδηγός για διαχειριστές πολυκατοικιών</p>
+      <h1>Καθαρισμός πολυκατοικίας: τι περιλαμβάνει, κάθε πότε γίνεται και πόσο κοστίζει</h1>
+      <p class="guide-hero__intro">Όλα όσα χρειάζεται να ξέρετε πριν ζητήσετε προσφορά για σταθερό καθαρισμό κοινόχρηστων χώρων στην Παλλήνη και την Αττική.</p>
+      <nav class="guide-jumps" aria-label="Περιεχόμενα άρθρου">
+        <a href="#perilamvanei">Τι περιλαμβάνει</a><a href="#syxnotita">Κάθε πότε</a><a href="#kostos">Κόστος</a><a href="#prosfora">Προσφορά</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="guide">
+    <section class="guide-opening reveal">
+      <div class="wrap guide-opening__grid">
+        <p class="guide-opening__statement">Ο καθαρισμός πολυκατοικίας είναι <mark class="scroll-highlight">σταθερή συντήρηση</mark> όλων των κοινόχρηστων χώρων με <mark class="scroll-highlight">συμφωνημένο πρόγραμμα εργασιών.</mark></p>
+        <div><p>Στην πράξη, δεν αρκεί ένα γρήγορο σκούπισμα στην είσοδο. Χρειάζεται να οριστεί τι καθαρίζεται σε κάθε επίσκεψη, ποιες εργασίες επαναλαμβάνονται εβδομαδιαία και ποιες γίνονται περιοδικά, ώστε κανένας χώρος να μη μένει εκτός.</p><p>Το πρόγραμμα συνήθως καλύπτει την είσοδο, τις σκάλες, τα πλατύσκαλα, τους διαδρόμους και το ασανσέρ. Αν υπάρχουν πυλωτή, υπόγειο, κοινόχρηστες αποθήκες ή μεγάλα τζάμια, πρέπει να αναφέρονται ξεχωριστά στη συμφωνία.</p><p>Για τον διαχειριστή, το σημαντικό είναι να μπορεί να ελέγξει τι συμφωνήθηκε και τι πραγματοποιήθηκε — όχι να λαμβάνει μόνο μια γενική τιμή «ανά επίσκεψη».</p></div>
+      </div>
+    </section>
+
+    <section id="perilamvanei" class="guide-block guide-block--ink reveal">
+      <div class="wrap">
+        <p class="guide-label">Τι περιλαμβάνει ο καθαρισμός πολυκατοικίας</p>
+        <div class="guide-heading-row"><h2 data-word-reveal>Τι περιλαμβάνει ο τακτικός καθαρισμός ανά κοινόχρηστο χώρο</h2><p>Οι ακριβείς εργασίες εξαρτώνται από το κτίριο. Πατήστε σε κάθε χώρο για να δείτε τι συνήθως εξετάζεται κατά την αυτοψία και τι μπορεί να ενταχθεί στη γραπτή προσφορά.</p></div>
+        <div class="space-explorer" data-spaces>
+          <div class="space-tabs" role="tablist" aria-label="Χώροι πολυκατοικίας">
+            <button class="space-tab is-active" type="button" data-space="entrance" role="tab" aria-selected="true">Είσοδος</button>
+            <button class="space-tab" type="button" data-space="stairs" role="tab" aria-selected="false">Κλιμακοστάσιο</button>
+            <button class="space-tab" type="button" data-space="lift" role="tab" aria-selected="false">Ασανσέρ</button>
+            <button class="space-tab" type="button" data-space="outside" role="tab" aria-selected="false">Πυλωτή &amp; υπόγειο</button>
+          </div>
+          <div class="space-stage">
+            <div class="space-panel is-active" data-space-panel="entrance"><strong>Καθαρισμός εισόδου πολυκατοικίας</strong><p>Σκούπισμα και σφουγγάρισμα του δαπέδου, απομάκρυνση σκόνης από χαμηλές επιφάνειες, καθαρισμός πόρτας και εσωτερικών τζαμιών εισόδου, γραμματοκιβωτίων όπου είναι εφικτό, πόμολων και διακοπτών. Ελέγχεται επίσης αν υπάρχουν χαλάκια, ιδιαίτερα υλικά δαπέδου ή σημεία που χρειάζονται διαφορετικό καθαριστικό.</p></div>
+            <div class="space-panel" data-space-panel="stairs" hidden><strong>Καθαρισμός σκάλας, πλατύσκαλων και διαδρόμων</strong><p>Σκούπισμα από τον τελευταίο όροφο προς την είσοδο, σφουγγάρισμα σκαλοπατιών και πλατύσκαλων, ξεσκόνισμα κουπαστών και κιγκλιδωμάτων και φροντίδα σε γωνίες και σοβατεπί. Η μέθοδος προσαρμόζεται στο υλικό του δαπέδου, ώστε να αποφεύγονται θαμπάδες ή υπολείμματα.</p></div>
+            <div class="space-panel" data-space-panel="lift" hidden><strong>Καθαρισμός ασανσέρ και σημείων συχνής επαφής</strong><p>Σκούπισμα και σφουγγάρισμα του θαλάμου, καθαρισμός καθρέπτη, θυρών και εσωτερικών επιφανειών, καθώς και προσεκτική φροντίδα σε κομβία και χειρολαβές. Σε inox επιφάνειες απαιτείται κατάλληλο προϊόν ώστε να μη μένουν σημάδια.</p></div>
+            <div class="space-panel" data-space-panel="outside" hidden><strong>Καθαρισμός πυλωτής, υπογείου και εξωτερικών κοινόχρηστων χώρων</strong><p>Η πυλωτή, τα κοινόχρηστα περάσματα, οι χώροι κάδων, τα υπόγεια και οι κοινόχρηστες αποθήκες χρειάζονται ξεχωριστή αξιολόγηση. Μπορούν να περιλαμβάνουν σκούπισμα, απομάκρυνση φύλλων και μικρών απορριμμάτων ή περιοδικό πλύσιμο, εφόσον αυτό έχει συμφωνηθεί.</p></div>
+            <span class="space-stage__count" aria-hidden="true">01</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-photo reveal">
+      <div class="wrap guide-photo__grid">
+        <figure><img src="/images/blog-polykatoikia-process.png" alt="Επαγγελματίας καθαρίζει την κουπαστή σε κοινόχρηστο κλιμακοστάσιο" width="1024" height="1536" loading="lazy" /><figcaption>Τα σημεία συχνής επαφής χρειάζονται σταθερή φροντίδα — όχι μόνο όταν φαίνονται βρώμικα.</figcaption></figure>
+        <div class="guide-photo__copy">
+          <p class="guide-label">Κατανομή εργασιών</p><h2>Ποιες εργασίες γίνονται σε κάθε επίσκεψη και ποιες περιοδικά;</h2>
+          <p>Ο διαχωρισμός αυτός είναι βασικός, επειδή αποτρέπει διαφορετικές προσδοκίες μεταξύ διαχειριστή και συνεργείου. Η γραπτή προσφορά πρέπει να ξεχωρίζει τουλάχιστον τις παρακάτω κατηγορίες.</p>
+          <div class="frequency-row"><span>Σε κάθε επίσκεψη</span><p>Βασική συντήρηση εισόδου, σκάλας, πλατύσκαλων, διαδρόμων και ασανσέρ. Περιλαμβάνει συνήθως σκούπισμα, σφουγγάρισμα και φροντίδα των εμφανών σημείων συχνής επαφής.</p></div>
+          <div class="frequency-row"><span>Περιοδικές εργασίες</span><p>Πιο αναλυτικός καθαρισμός τζαμιών και κουφωμάτων, σοβατεπί, φωτιστικών, δύσκολων γωνιών και επιφανειών που δεν χρειάζονται την ίδια συχνότητα με το δάπεδο.</p></div>
+          <div class="frequency-row"><span>Πρόσθετες εργασίες</span><p>Πυλωτή, υπόγειο, αποθήκες, χώροι κάδων, εξωτερικά τζάμια ή έκτακτος βαθύς καθαρισμός. Πρέπει να αναφέρονται ονομαστικά, μαζί με τη συχνότητα ή την επιπλέον χρέωσή τους.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="syxnotita" class="guide-block guide-block--paper reveal">
+      <div class="wrap">
+        <p class="guide-label">Συχνότητα επισκέψεων</p>
+        <h2 class="guide-display" data-word-reveal>Κάθε πότε πρέπει να γίνεται ο καθαρισμός πολυκατοικίας;</h2>
+        <div class="guide-prose"><p>Δεν υπάρχει μία συχνότητα κατάλληλη για όλα τα κτίρια. Μια μικρή πολυκατοικία με λίγα διαμερίσματα και περιορισμένη κίνηση έχει διαφορετικές ανάγκες από ένα πολυώροφο κτίριο με δύο εισόδους, καθημερινές παραδόσεις, παιδιά, κατοικίδια ή επαγγελματικούς χώρους.</p><p>Στην αυτοψία εξετάζονται ο αριθμός των ορόφων, η κατάσταση των δαπέδων, η χρήση του ασανσέρ, το αν υπάρχει πυλωτή ή υπόγειο και πόσο γρήγορα λερώνεται η είσοδος. Με βάση αυτά διαμορφώνεται ένα ρεαλιστικό πρόγραμμα.</p></div>
+        <div class="frequency-scale">
+          <div><b>1 φορά / εβδομάδα</b><p>Μπορεί να επαρκεί σε μικρό κτίριο με περιορισμένη καθημερινή κίνηση.</p></div>
+          <div><b>2 φορές / εβδομάδα</b><p>Συχνή επιλογή για κατοικημένες πολυκατοικίες που χρειάζονται σταθερή εικόνα.</p></div>
+          <div><b>3+ φορές / εβδομάδα</b><p>Για μεγάλα κτίρια, πολλές εισόδους ή αυξημένη χρήση κοινόχρηστων χώρων.</p></div>
+        </div>
+        <p class="guide-note">Οι παραπάνω συχνότητες είναι ενδεικτικές και όχι έτοιμα πακέτα. Η τελική πρόταση πρέπει να προκύπτει μετά την αυτοψία της συγκεκριμένης πολυκατοικίας.</p>
+      </div>
+    </section>
+
+    <section id="kostos" class="guide-block guide-block--gold reveal">
+      <div class="wrap cost-grid">
+        <div><p class="guide-label">Τιμή καθαρισμού πολυκατοικίας</p><h2>Πώς υπολογίζεται το μηνιαίο κόστος καθαρισμού πολυκατοικίας;</h2><p class="cost-intro">Μια αξιόπιστη τιμή προκύπτει όταν υπολογιστεί ο πραγματικός χρόνος εργασίας, η συχνότητα και το ακριβές αντικείμενο. Για αυτό μια τηλεφωνική τιμή χωρίς εικόνα του κτιρίου μπορεί εύκολα να είναι ελλιπής.</p></div>
+        <div class="cost-factors"><p><span class="cost-n">01</span><span><b>Μέγεθος κτιρίου:</b> όροφοι, είσοδοι, πλατύσκαλα και συνολική επιφάνεια κοινόχρηστων χώρων.</span></p><p><span class="cost-n">02</span><span><b>Συχνότητα:</b> αριθμός επισκέψεων ανά εβδομάδα ή μήνα και εκτιμώμενη διάρκεια κάθε επίσκεψης.</span></p><p><span class="cost-n">03</span><span><b>Επιπλέον χώροι:</b> ασανσέρ, πυλωτή, υπόγειο, αυλή, εξωτερικές σκάλες και χώροι κάδων.</span></p><p><span class="cost-n">04</span><span><b>Περιοδικές εργασίες:</b> τζάμια, κουφώματα, δύσκολες επιφάνειες και βαθύτερος καθαρισμός.</span></p><p><span class="cost-n">05</span><span><b>Υλικά και εξοπλισμός:</b> ποιος τα παρέχει, τι απαιτεί το δάπεδο και αν χρειάζεται ειδικός εξοπλισμός.</span></p></div>
+      </div>
+    </section>
+
+    <section id="prosfora" class="guide-block guide-block--white reveal">
+      <div class="wrap offer-grid">
+        <div><p class="guide-label">Γραπτή προσφορά</p><h2>Τι πρέπει να περιλαμβάνει μια προσφορά καθαρισμού πολυκατοικίας;</h2><p class="offer-intro">Η προσφορά πρέπει να λειτουργεί ως σαφής περιγραφή της συνεργασίας. Όσο πιο συγκεκριμένη είναι, τόσο ευκολότερα μπορεί ο διαχειριστής να συγκρίνει προτάσεις και να ελέγξει την ποιότητα της υπηρεσίας.</p></div>
+        <div class="offer-list"><p><b>Αναλυτική λίστα εργασιών</b> ανά χώρο και σαφής διαχωρισμός ανάμεσα σε τακτικές και περιοδικές εργασίες.</p><p><b>Συχνότητα, ημέρες και ενδεικτική διάρκεια</b> των επισκέψεων, μαζί με τον τρόπο συνεννόησης όταν χρειάζεται αλλαγή.</p><p><b>Υλικά καθαρισμού και εξοπλισμός:</b> ποιος τα προμηθεύει και αν περιλαμβάνονται στη συμφωνημένη τιμή.</p><p><b>Μηνιαία τιμή, ΦΠΑ και πρόσθετες χρεώσεις</b> για εργασίες που δεν ανήκουν στο βασικό πρόγραμμα.</p><p><b>Υπεύθυνος επικοινωνίας</b> και διαδικασία ενημέρωσης σε περίπτωση απουσίας, βλάβης ή έκτακτης ανάγκης.</p></div>
+      </div>
+    </section>
+
+    <section class="guide-details reveal">
+      <div class="wrap">
+        <div class="guide-details__head">
+          <p class="guide-label">Υλικά και σωστή εφαρμογή</p>
+          <h2>Τι πρέπει να γνωρίζετε για καθαριστικά, εξοπλισμό και διαφορετικές επιφάνειες</h2>
+          <p>Δεν καθαρίζονται όλες οι επιφάνειες με τον ίδιο τρόπο. Μάρμαρο, πλακάκι, ξύλο, inox και γυαλί χρειάζονται διαφορετικά προϊόντα και σωστή δοσολογία. Η χρήση ακατάλληλου καθαριστικού μπορεί να αφήσει θαμπάδα, κολλώδη υπολείμματα ή σημάδια.</p>
+        </div>
+        <div class="detail-columns">
+          <div><h3>Καθαριστικά προϊόντα</h3><p>Η προσφορά χρειάζεται να διευκρινίζει αν τα προϊόντα παρέχονται από το συνεργείο ή την πολυκατοικία. Είναι επίσης χρήσιμο να αναφέρονται τυχόν ιδιαίτερες απαιτήσεις, όπως ευαίσθητα δάπεδα, έντονες οσμές που πρέπει να αποφεύγονται ή συγκεκριμένα προϊόντα που δεν επιτρέπονται.</p></div>
+          <div><h3>Εξοπλισμός εργασίας</h3><p>Σκούπες, σφουγγαρίστρες, πανιά διαφορετικής χρήσης, προειδοποιητικές πινακίδες και εξοπλισμός για τζάμια πρέπει να είναι κατάλληλα για τον χώρο. Για ειδικές ή βαθύτερες εργασίες μπορεί να απαιτείται διαφορετικός εξοπλισμός, ο οποίος συμφωνείται πριν από την εκτέλεση.</p></div>
+          <div><h3>Ασφάλεια στους κοινόχρηστους χώρους</h3><p>Κατά τη διάρκεια του καθαρισμού πρέπει να διατηρείται ασφαλής η διέλευση των ενοίκων. Τα βρεγμένα δάπεδα χρειάζονται σήμανση, τα υλικά δεν πρέπει να εμποδίζουν σκάλες και εξόδους και η πρόσβαση σε κλειδιά ή κωδικούς πρέπει να έχει συμφωνηθεί με τον διαχειριστή.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-block guide-block--mistakes reveal">
+      <div class="wrap mistakes-grid">
+        <div>
+          <p class="guide-label">Συνηθισμένα κενά στη συνεργασία</p>
+          <h2>Τι συχνά μένει εκτός και δημιουργεί παρεξηγήσεις</h2>
+        </div>
+        <div>
+          <article><h3>Τα τζάμια θεωρούνται αυτονόητα</h3><p>Άλλο ο καθαρισμός της γυάλινης πόρτας εισόδου και άλλο το πλύσιμο όλων των κοινόχρηστων υαλοπινάκων. Η έκταση και η συχνότητα πρέπει να καταγράφονται.</p></article>
+          <article><h3>Δεν ορίζονται οι περιοδικές εργασίες</h3><p>Χωρίς συγκεκριμένο προγραμματισμό, σοβατεπί, φωτιστικά, δύσκολες γωνίες και εξωτερικά σημεία μπορεί να μένουν συνεχώς για «την επόμενη φορά».</p></article>
+          <article><h3>Η τιμή συγκρίνεται χωρίς ίδιο αντικείμενο</h3><p>Δύο προσφορές δεν είναι πραγματικά συγκρίσιμες αν η μία περιλαμβάνει υλικά, πυλωτή και τζάμια και η άλλη καλύπτει μόνο σκάλα και είσοδο.</p></article>
+          <article><h3>Δεν υπάρχει διαδικασία αναφοράς προβλημάτων</h3><p>Ο διαχειριστής χρειάζεται να γνωρίζει σε ποιον απευθύνεται όταν μια εργασία δεν πραγματοποιηθεί ή όταν προκύψει έκτακτη ανάγκη στον χώρο.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="inspection-block reveal">
+      <div class="wrap inspection-grid">
+        <div>
+          <p class="guide-label">Δωρεάν αυτοψία</p>
+          <h2 data-word-reveal>Τι ελέγχουμε πριν διαμορφωθεί το πρόγραμμα καθαρισμού</h2>
+        </div>
+        <div class="inspection-copy">
+          <p>Η αυτοψία δεν είναι τυπική επίσκεψη. Είναι το σημείο όπου καταγράφεται η πραγματική έκταση της εργασίας και λύνονται οι λεπτομέρειες πριν ξεκινήσει η συνεργασία.</p>
+          <ul>
+            <li>Αριθμός ορόφων, εισόδων και κοινόχρηστων επιπέδων.</li>
+            <li>Υλικό και κατάσταση δαπέδων, σκάλας και εισόδου.</li>
+            <li>Ασανσέρ, τζάμια, πυλωτή, υπόγειο και εξωτερικά σημεία.</li>
+            <li>Πρόσβαση στο κτίριο, διαθέσιμο νερό και χώρος φύλαξης υλικών.</li>
+            <li>Επιθυμητές ημέρες, ώρες και συχνότητα επισκέψεων.</li>
+          </ul>
+          <p>Μετά την καταγραφή μπορεί να δοθεί γραπτή προσφορά με συγκεκριμένες εργασίες και πρόγραμμα, ώστε η πολυκατοικία να γνωρίζει ακριβώς τι πληρώνει κάθε μήνα.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-gallery reveal" aria-label="Επαγγελματικός καθαρισμός κοινόχρηστων χώρων">
+      <figure class="story-image story-image--wide">
+        <img src="/images/blog-polykatoikia-mopping.webp" alt="Επαγγελματίας καθαρίζει το δάπεδο κοινόχρηστου διαδρόμου πολυκατοικίας" width="1536" height="1024" loading="lazy" />
+        <figcaption>Η συστηματική φροντίδα του δαπέδου διατηρεί σταθερή την καθημερινή εικόνα του κτιρίου.</figcaption>
+      </figure>
+      <figure class="story-image story-image--detail">
+        <img src="/images/blog-polykatoikia-equipment.webp" alt="Οργανωμένος επαγγελματικός εξοπλισμός καθαρισμού σε είσοδο πολυκατοικίας" width="1536" height="1024" loading="lazy" />
+        <figcaption>Ο σωστός εξοπλισμός επιλέγεται ανάλογα με τις επιφάνειες και τις εργασίες της πολυκατοικίας.</figcaption>
+      </figure>
+    </section>
+
+    <section id="perioxes" class="local-block reveal">
+      <div class="wrap local-block__inner">
+        <p class="guide-label">Καθαρισμός πολυκατοικιών στην Αττική</p><h2>Με έδρα την Παλλήνη, δίπλα στη δική σας πολυκατοικία.</h2>
+        <p>Η SafeCleaning αναλαμβάνει σταθερά προγράμματα καθαρισμού σε Παλλήνη, Γέρακα, Γλυκά Νερά, Παιανία και ευρύτερα στην Αττική. Ξεκινάμε με δωρεάν αυτοψία, ώστε η προσφορά να βασίζεται στον πραγματικό χώρο και όχι σε μια πρόχειρη εκτίμηση.</p>
+        <a class="btn btn--light" href="/epikoinonia">Κλείστε δωρεάν αυτοψία</a>
+      </div>
+    </section>
+
+    <section class="guide-faq reveal">
+      <div class="wrap wrap--narrow"><p class="guide-label">Συχνές ερωτήσεις</p><h2>Όσα ρωτούν συχνότερα οι διαχειριστές</h2><div class="article__faq">{faq.map((item) => (<details><summary>{item.question}</summary><p>{item.answer}</p></details>))}</div></div>
+    </section>
+  </div>
+
+  <div id="cta" class="guide-final-cta">
+    <CtaBand title="Θέλετε προσφορά για τη δική σας πολυκατοικία;" text="Κλείστε δωρεάν αυτοψία στην Παλλήνη ή την Αττική και οργανώστε ένα πρόγραμμα προσαρμοσμένο στο κτίριό σας." actionText="Ζητήστε δωρεάν αυτοψία" />
+  </div>
+
+  <script is:inline>
+    const spaceRoot = document.querySelector('[data-spaces]');
+    if (spaceRoot) {
+      const tabs = [...spaceRoot.querySelectorAll('[data-space]')];
+      const panels = [...spaceRoot.querySelectorAll('[data-space-panel]')];
+      const count = spaceRoot.querySelector('.space-stage__count');
+      tabs.forEach((tab, index) => tab.addEventListener('click', () => {
+        tabs.forEach((item) => { const active = item === tab; item.classList.toggle('is-active', active); item.setAttribute('aria-selected', String(active)); });
+        panels.forEach((panel) => { const active = panel.dataset.spacePanel === tab.dataset.space; panel.hidden = !active; panel.classList.toggle('is-active', active); });
+        if (count) count.textContent = String(index + 1).padStart(2, '0');
+      }));
+    }
+    const progress = document.querySelector('.reading-progress span');
+    const updateProgress = () => { if (!progress) return; const max = document.documentElement.scrollHeight - innerHeight; progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`; };
+    addEventListener('scroll', updateProgress, { passive: true }); updateProgress();
+    document.querySelectorAll('[data-word-reveal]').forEach((heading) => {
+      const words = heading.textContent.trim().split(/\s+/);
+      heading.textContent = '';
+      words.forEach((word, index) => {
+        const span = document.createElement('span');
+        span.textContent = word + (index === words.length - 1 ? '' : ' ');
+        span.style.setProperty('--word-index', index);
+        heading.appendChild(span);
+      });
+    });
+    const reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold: .08 });
+      reveals.forEach((item) => observer.observe(item));
+    } else reveals.forEach((item) => item.classList.add('is-visible'));
+  </script>
+</Base>

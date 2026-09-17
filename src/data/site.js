@@ -24,6 +24,7 @@ export const company = {
 export const nav = [
   { label: 'Αρχική', href: '/' },
   { label: 'Υπηρεσίες', href: '/ypiresies' },
+  { label: 'Οδηγός', href: '/blog' },
   { label: 'Ποιοι Είμαστε', href: '/poioi-eimaste' },
   { label: 'Επικοινωνία', href: '/epikoinonia' },
 ];
