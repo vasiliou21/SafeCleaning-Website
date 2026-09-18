@@ -1,27 +1,68 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
 
-const title = 'Οδηγός Καθαρισμού | SafeCleaning';
+const title = 'Οδηγοί Καθαρισμού | SafeCleaning';
 const description = 'Πρακτικοί οδηγοί για καθαρισμό πολυκατοικιών, επαγγελματικών χώρων και αρχικούς καθαρισμούς στην Παλλήνη και την Αττική.';
+
+const articles = [
+  {
+    category: 'Πολυκατοικίες',
+    title: 'Καθαρισμός πολυκατοικίας: τι περιλαμβάνει, κάθε πότε γίνεται και πόσο κοστίζει',
+    excerpt: 'Τι περιλαμβάνει κάθε επίσκεψη, ποιες εργασίες γίνονται περιοδικά και τι πρέπει να ζητήσει ο διαχειριστής σε μια σωστή προσφορά.',
+    href: '/blog/katharismos-polykatoikias-ti-perilamvanei/',
+    image: '/images/blog-polykatoikia-hero.png',
+    imageAlt: 'Καθαρή είσοδος και κοινόχρηστος χώρος πολυκατοικίας',
+  },
+];
 ---
 <Base title={title} description={description}>
-  <section class="pagehero">
+  <section class="pagehero guides-hero">
     <div class="wrap wrap--narrow">
-      <p class="crumbs"><a href="/">Αρχική</a> / Οδηγός</p>
-      <span class="eyebrow">Οδηγός SafeCleaning</span>
+      <p class="crumbs"><a href="/">Αρχική</a> / Οδηγοί</p>
+      <span class="eyebrow">Οδηγοί SafeCleaning</span>
       <h1>Πρακτικές απαντήσεις για τον καθαρισμό του χώρου σας</h1>
       <p>Χρήσιμοι οδηγοί για διαχειριστές, ιδιοκτήτες και επιχειρήσεις στην Παλλήνη, την Αττική και τις γύρω περιοχές.</p>
     </div>
   </section>
-  <section class="section">
-    <div class="wrap wrap--narrow">
-      <article class="blog-card">
-        <span class="eyebrow">Πολυκατοικίες</span>
-        <h2><a href="/blog/katharismos-polykatoikias-ti-perilamvanei/">Καθαρισμός πολυκατοικίας: τι περιλαμβάνει ένα σωστό μηνιαίο πρόγραμμα</a></h2>
-        <p>Τι περιλαμβάνει κάθε επίσκεψη, ποιες εργασίες γίνονται περιοδικά και τι πρέπει να ζητήσει ο διαχειριστής σε μια προσφορά.</p>
-        <a class="row__link" href="/blog/katharismos-polykatoikias-ti-perilamvanei/">Διαβάστε τον οδηγό →</a>
-      </article>
+  <section class="guides-index" aria-labelledby="guides-index-title">
+    <div class="wrap">
+      <div class="guides-index__intro" data-reveal>
+        <span class="eyebrow">Όλα τα άρθρα</span>
+        <h2 id="guides-index-title">Γνώση που βοηθά πριν ζητήσετε προσφορά</h2>
+      </div>
+
+      <div class="guides-grid">
+        {articles.map((article, index) => (
+          <article class="guide-card" data-reveal data-delay={index + 1}>
+            <a class="guide-card__media" href={article.href} aria-label={`Διαβάστε: ${article.title}`}>
+              <img
+                src={article.image}
+                alt={article.imageAlt}
+                width="1536"
+                height="1024"
+                loading="lazy"
+              />
+              <span class="guide-card__view" aria-hidden="true">
+                <Icon name="arrow" size={24} />
+                Διαβάστε
+              </span>
+              <span class="guide-card__number">{String(index + 1).padStart(2, '0')}</span>
+            </a>
+            <div class="guide-card__body">
+              <p class="guide-card__meta">
+                <span>{article.category}</span>
+              </p>
+              <h3><a href={article.href}>{article.title}</a></h3>
+              <p>{article.excerpt}</p>
+              <a class="guide-card__link" href={article.href}>
+                Διαβάστε τον οδηγό <Icon name="arrow" size={20} />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
   <CtaBand />
