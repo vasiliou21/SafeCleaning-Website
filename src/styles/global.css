@@ -433,6 +433,8 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
 .local-block .guide-label { color: var(--gold-soft); }
 .local-block h2 { color: #fff; max-width: 16ch; }
 .local-block p:not(.guide-label) { max-width: 62ch; margin: 28px 0; }
+.local-block p a { color: #fff; font-weight: 700; text-decoration: underline; text-decoration-color: var(--gold-soft); text-underline-offset: 4px; }
+.local-block p a:hover, .local-block p a:focus-visible { color: var(--gold-soft); }
 .local-block .btn--light { background: var(--gold-soft); color: var(--navy-2); border-color: var(--gold-soft); }
 .local-block .btn--light:hover { background: #fff; border-color: #fff; transform: translateY(-2px); }
 .guide-faq { padding-block: 110px; }
@@ -512,6 +514,7 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
 .section-head .eyebrow { display: block; margin-bottom: 14px; }
 .section-head h2 { font-size: clamp(1.9rem, 3vw, 2.5rem); margin-bottom: 14px; }
 .section-head p { font-size: 1.05rem; color: var(--body-txt); }
+.section-head p + p { margin-top: 14px; }
 
 /* ── services grid ── */
 .services { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
