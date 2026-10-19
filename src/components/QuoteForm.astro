@@ -33,7 +33,7 @@ import { services } from '../data/site.js';
   </div>
   <div class="field">
     <label for="type">Τύπος χώρου</label>
-    <select id="type" name="type">
+    <select id="type" name="type" required>
       <option value="">Επιλέξτε τύπο χώρου</option>
       {services.map((s) => <option>{s.title}</option>)}
       <option>Άλλο</option>
@@ -53,8 +53,9 @@ import { services } from '../data/site.js';
   const ENDPOINT = "https://buwmhccjxuimhnscsujm.supabase.co/functions/v1/booking-requests";
   const ANON_KEY =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1d21oY2NqeHVpbWhuc2NzdWptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3MjQ2MDAsImV4cCI6MjA5NzMwMDYwMH0.dsJyGauloH5qD7bEeZkS1-A7JZdMjfNaUa3J-tmg0z8";
-  // The engine requires a service and a description; the site keeps both
-  // optional for visitors, so empty answers are sent as an explicit marker.
+  // The engine requires a description; the site keeps it optional, so an empty
+  // answer is sent as an explicit marker. The service is required on the form
+  // and sent as typed: the engine treats a request without it as spam.
   const NOT_GIVEN = "Δεν συμπληρώθηκε";
 
   for (const form of document.querySelectorAll<HTMLFormElement>('form[name="prosfora"]')) {
@@ -87,7 +88,7 @@ import { services } from '../data/site.js';
         consent: true,
         hp: value("hp"),
         fields: {
-          service: value("type") || NOT_GIVEN,
+          service: value("type"),
           name: value("name"),
           phone: value("phone"),
           email: value("email"),
