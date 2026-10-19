@@ -1,7 +1,8 @@
 ---
 import { services } from '../data/site.js';
-// Netlify Forms — static-friendly. After deploy, set the recipient email in the
-// Netlify dashboard (Forms → Notifications). Submissions redirect to /efxaristoume.
+// Requests go to the Istos Hub booking engine, which emails the owner. Netlify
+// Forms stays as the fallback, so a request is never lost if the engine is
+// unreachable. Submissions redirect to /efxaristoume.
 ---
 <form
   class="form"
@@ -12,7 +13,9 @@ import { services } from '../data/site.js';
   action="/efxaristoume/"
 >
   <input type="hidden" name="form-name" value="prosfora" />
+  {/* Two honeypots: `bot-field` is Netlify's, `hp` is the booking engine's. */}
   <p class="hp"><label>Μην το συμπληρώσετε: <input name="bot-field" /></label></p>
+  <p class="hp"><label>Μην το συμπληρώσετε: <input name="hp" tabindex="-1" autocomplete="off" /></label></p>
 
   <div class="form__row">
     <div class="field">
@@ -41,5 +44,98 @@ import { services } from '../data/site.js';
     <textarea id="message" name="message" placeholder="Περιγράψτε σύντομα τον χώρο και τις ανάγκες σας."></textarea>
   </div>
   <button type="submit" class="btn btn--solid">Αποστολή αιτήματος</button>
-  <p class="form__note">Θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό.</p>
+  <p class="form__note">Θα επικοινωνήσουμε μαζί σας το συντομότερο δυνατό. Τα στοιχεία σας χρησιμοποιούνται μόνο για την απάντηση στο αίτημά σας.</p>
 </form>
+
+<script>
+  // Istos Booking Tools. The anon key is meant to be public — the Edge Function
+  // is the gatekeeper (per-tenant origin allow-list, honeypot, throttle).
+  const ENDPOINT = "https://buwmhccjxuimhnscsujm.supabase.co/functions/v1/booking-requests";
+  const ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1d21oY2NqeHVpbWhuc2NzdWptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3MjQ2MDAsImV4cCI6MjA5NzMwMDYwMH0.dsJyGauloH5qD7bEeZkS1-A7JZdMjfNaUa3J-tmg0z8";
+  // The engine requires a service and a description; the site keeps both
+  // optional for visitors, so empty answers are sent as an explicit marker.
+  const NOT_GIVEN = "Δεν συμπληρώθηκε";
+
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[name="prosfora"]')) {
+    let sending = false;
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (sending) return;
+      sending = true;
+      const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const submitLabel = submitBtn?.textContent ?? "";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Αποστολή…";
+      }
+      const data = new FormData(form);
+      const value = (key: string) => String(data.get(key) ?? "").trim();
+      const finish = () => window.location.assign(form.getAttribute("action") || "/efxaristoume/");
+
+      const payload = {
+        adapter_id: "service-request",
+        client_id: "safe-cleaning",
+        project_id: "safecleaning-website",
+        request_name: "Αίτημα προσφοράς",
+        capability_availability: "request_only",
+        capability_payment: "none",
+        capability_approval: "manual",
+        locale: "el",
+        // Sending is the visitor's request to be contacted; the note under the
+        // button states the data is used only to answer it.
+        consent: true,
+        hp: value("hp"),
+        fields: {
+          service: value("type") || NOT_GIVEN,
+          name: value("name"),
+          phone: value("phone"),
+          email: value("email"),
+          message: value("message") || NOT_GIVEN,
+        },
+        tracking: {
+          page_url: window.location.href,
+          referrer: document.referrer || null,
+          submitted_at: new Date().toISOString(),
+        },
+      };
+
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            apikey: ANON_KEY,
+            Authorization: `Bearer ${ANON_KEY}`,
+          },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error(`booking engine responded ${res.status}`);
+        finish();
+        return;
+      } catch (error) {
+        console.error("Booking engine unavailable — falling back to Netlify Forms.", error);
+      }
+
+      // A request is worth more than the channel that carries it, so a failed
+      // engine call still lands the lead in Netlify Forms (and its email).
+      try {
+        const res = await fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+        });
+        if (!res.ok) throw new Error(`Netlify Forms responded ${res.status}`);
+        finish();
+      } catch (error) {
+        console.error("Netlify Forms fallback failed.", error);
+        sending = false;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel;
+        }
+        alert("Δεν ήταν δυνατή η αποστολή. Καλέστε μας ή δοκιμάστε ξανά σε λίγο.");
+      }
+    });
+  }
+</script>
