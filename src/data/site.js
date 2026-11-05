@@ -8,8 +8,8 @@ export const company = {
   legalName: 'SafeCleaning',
   description:
     'Οικογενειακή εταιρεία επαγγελματικού καθαρισμού με έδρα την Παλλήνη Αττικής. Καθαρισμοί πολυκατοικιών, επαγγελματικών χώρων, κτιρίων και αρχικοί καθαρισμοί με οικολογικά προϊόντα.',
-  phoneMobile: '698 077 9494',
-  phoneMobileHref: '+306980779494',
+  phoneMobile: '693 180 5568',
+  phoneMobileHref: '+306931805568',
   phoneLandline: '210 661 6030',
   phoneLandlineHref: '+302106616030',
   email: 'info@safecleaning.gr',
