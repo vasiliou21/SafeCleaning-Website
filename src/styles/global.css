@@ -141,8 +141,8 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
 
 /* ── Ken Burns: slow cinematic drift on hero photos (reduced-motion aware) ── */
 @keyframes sc-kenburns { from { transform: scale(1.001); } to { transform: scale(1.08); } }
-.hero__media img, .shero__img img { animation: sc-kenburns 20s ease-in-out infinite alternate; transform-origin: center; will-change: transform; }
-@media (prefers-reduced-motion: reduce) { .hero__media img, .shero__img img { animation: none; } }
+.shero__img img { animation: sc-kenburns 20s ease-in-out infinite alternate; transform-origin: center; will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .shero__img img { animation: none; } }
 
 /* ── hero ── */
 .hero { background: var(--navy); color: #fff; position: relative; overflow: hidden; }
@@ -760,9 +760,9 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
   .hero__media img { object-position: center; }
   .hero__media::after {
     background: linear-gradient(180deg,
-      rgba(13,32,48,0.86) 0%,
-      rgba(13,32,48,0.68) 45%,
-      rgba(13,32,48,0.88) 100%);
+      rgba(13,32,48,0.94) 0%,
+      rgba(13,32,48,0.88) 45%,
+      rgba(13,32,48,0.93) 100%);
   }
   .hero__sub { color: rgba(255,255,255,0.92); }
   .hero__lead { color: rgba(255,255,255,0.95); }
@@ -881,4 +881,12 @@ h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; lin
   .trust__item small { font-size: 0.74rem; }
   .statement__inner { padding-block: 52px; }
   .ctaband__inner { padding-block: 38px; }
+}
+
+@media (max-width: 360px) {
+  .trust__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trust__item { padding-inline: 10px; gap: 8px; overflow-wrap: anywhere; }
+  .services { grid-template-columns: minmax(0, 1fr); }
+  .service { grid-template-columns: 88px minmax(0, 1fr); }
+  .service__body { min-width: 0; padding-inline: 16px; overflow-wrap: anywhere; }
 }

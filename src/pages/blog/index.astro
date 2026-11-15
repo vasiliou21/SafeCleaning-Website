@@ -1,4 +1,5 @@
 ---
+import { businessCleaningGuide } from '../../data/business-cleaning-guide.js';
 import Base from '../../layouts/Base.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Icon from '../../components/Icon.astro';
@@ -12,9 +13,9 @@ const articles = [
     title: 'Καθαρισμός πολυκατοικίας: τι περιλαμβάνει, κάθε πότε γίνεται και πόσο κοστίζει',
     excerpt: 'Τι περιλαμβάνει κάθε επίσκεψη, ποιες εργασίες γίνονται περιοδικά και τι πρέπει να ζητήσει ο διαχειριστής σε μια σωστή προσφορά.',
     href: '/blog/katharismos-polykatoikias-ti-perilamvanei/',
-    image: '/images/blog-polykatoikia-hero.png',
-    imageAlt: 'Καθαρή είσοδος και κοινόχρηστος χώρος πολυκατοικίας',
+    photo: { src: '/images/blog-polykatoikia-hero.png', alt: 'Καθαρή είσοδος και κοινόχρηστος χώρος πολυκατοικίας', width: 1672, height: 941 },
   },
+  businessCleaningGuide,
 ];
 ---
 <Base title={title} description={description}>
@@ -38,10 +39,8 @@ const articles = [
           <article class="guide-card" data-reveal data-delay={index + 1}>
             <a class="guide-card__media" href={article.href} aria-label={`Διαβάστε: ${article.title}`}>
               <img
-                src={article.image}
-                alt={article.imageAlt}
-                width="1536"
-                height="1024"
+                {...article.photo}
+                sizes="(max-width: 760px) 92vw, 46vw"
                 loading="lazy"
               />
               <span class="guide-card__view" aria-hidden="true">

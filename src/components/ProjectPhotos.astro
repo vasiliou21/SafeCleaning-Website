@@ -1,0 +1,149 @@
+---
+import Icon from './Icon.astro';
+
+const { items, title = 'Έργα', description, id, showcase = false } = Astro.props;
+const Container = showcase ? 'project-carousel' : 'div';
+---
+<section class:list={['section project-work', { 'project-work--showcase': showcase }]} id={id}>
+  <div class="wrap">
+    <header class="project-work__heading">
+      <h2>{title}</h2>
+      {description && <p class="project-work__description">{description}</p>}
+    </header>
+  </div>
+  <Container class:list={[{ wrap: !showcase }]} >
+    <div class="project-work__grid" tabindex={showcase ? 0 : undefined} aria-label={showcase ? 'Φωτογραφίες έργων' : undefined}>
+      {items.map(({ photo, caption, href }) => (
+        <figure>
+          <img
+            {...photo}
+            sizes={showcase
+              ? '(max-width: 700px) 78vw, (max-width: 1040px) 39vw, 28vw'
+              : '(max-width: 640px) 92vw, (max-width: 1200px) 46vw, 550px'}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            {href ? <a href={href}>{caption}<Icon name="arrow" size={23} /></a> : caption}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+    {showcase && (
+      <div class="wrap project-nav" hidden>
+        <span class="project-status" aria-live="polite">1 / {items.length}</span>
+        <button class="project-prev" type="button" aria-label="Προηγούμενο έργο" disabled><Icon name="arrow" size={20} /></button>
+        <button class="project-next" type="button" aria-label="Επόμενο έργο"><Icon name="arrow" size={20} /></button>
+      </div>
+    )}
+  </Container>
+</section>
+
+<script>
+  class ProjectCarousel extends HTMLElement {
+    connectedCallback() {
+      const track = this.querySelector<HTMLElement>('.project-work__grid');
+      const nav = this.querySelector<HTMLElement>('.project-nav');
+      const status = this.querySelector<HTMLElement>('.project-status');
+      const previous = this.querySelector<HTMLButtonElement>('.project-prev');
+      const next = this.querySelector<HTMLButtonElement>('.project-next');
+      if (!track || !nav || !status || !previous || !next || !nav.hidden || track.children.length < 2) return;
+      const cards = Array.from(track.querySelectorAll('figure'));
+      const stepSize = () => cards[1].offsetLeft - cards[0].offsetLeft;
+      const current = () => Math.round(track.scrollLeft / stepSize());
+      const move = (step: number) => track.scrollTo({ left: (current() + step) * stepSize() });
+
+      previous.addEventListener('click', () => move(-1));
+      next.addEventListener('click', () => move(1));
+
+      const update = () => {
+        const index = current();
+        previous.disabled = index === 0;
+        next.disabled = index >= cards.length - 1;
+        const label = `${index + 1} / ${cards.length}`;
+        if (status.textContent !== label) status.textContent = label;
+      };
+      track.addEventListener('scroll', update, { passive: true });
+
+      if (matchMedia('(min-width: 701px)').matches) {
+        track.scrollTo({ left: stepSize(), behavior: 'instant' });
+      }
+      update();
+      nav.hidden = false;
+    }
+  }
+  if (!customElements.get('project-carousel')) customElements.define('project-carousel', ProjectCarousel);
+</script>
+
+<style>
+  .project-work { background: var(--bg-soft); }
+  .project-work__heading { margin-bottom: 26px; }
+  h2 { font-size: clamp(1.9rem, 3vw, 2.5rem); }
+  .project-work__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 3vw, 34px); }
+  .project-work__description { font-size: 1.05rem; color: var(--body-txt); margin-top: 10px; max-width: 62ch; }
+  figure { margin: 0; position: relative; }
+  img { display: block; width: 100%; height: auto; aspect-ratio: 1.5; object-fit: cover; border-radius: 8px; }
+  figcaption { border-bottom: 1px solid var(--line); padding-block: 13px; color: var(--navy); font-family: var(--serif); font-size: 1.2rem; }
+  a { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  a::after { content: ''; position: absolute; inset: 0; }
+  a:hover { color: var(--teal-dark); }
+  a:focus-visible::after { outline: 2px solid var(--teal-dark); outline-offset: 5px; }
+
+  .project-work--showcase { background: var(--bg-tint); padding-block: clamp(54px, 7vw, 96px); }
+  .project-work--showcase .project-work__heading { max-width: 61ch; margin-bottom: clamp(26px, 4vw, 40px); }
+  .project-work--showcase h2 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; }
+  .project-work--showcase .project-work__description { margin-top: 15px; line-height: 1.6; }
+  .project-work--showcase .project-work__grid {
+    display: flex;
+    --project-width: 28vw;
+    gap: clamp(16px, 2vw, 36px);
+    padding-inline: calc((100% - var(--project-width)) / 2);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .project-work--showcase figure { flex: 0 0 var(--project-width); min-width: 0; scroll-snap-align: center; }
+  .project-work--showcase img { aspect-ratio: 1.12; object-position: center 57%; border-radius: 3px; transition: filter 300ms ease; }
+  .project-work--showcase figure:hover img { filter: brightness(1.06); }
+  .project-work--showcase figcaption { padding: 14px 0 12px; font-size: clamp(1.1rem, 1.5vw, 1.5rem); }
+  .project-work--showcase a::after { inset: 0; }
+  .project-work--showcase a:focus-visible { outline: 2px solid var(--teal-dark); outline-offset: -2px; }
+  project-carousel { display: block; }
+  .project-nav:not([hidden]) { display: flex; align-items: center; justify-content: flex-end; gap: 9px; margin-top: 14px; }
+  .project-nav button {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--teal-dark);
+    border-radius: 50%;
+    color: var(--teal-dark);
+    cursor: pointer;
+  }
+  .project-nav button[disabled] { opacity: .4; cursor: default; }
+  .project-nav button:not([disabled]):hover { background: var(--teal-dark); color: white; }
+  .project-prev :global(svg) { transform: rotate(180deg); }
+  .project-status { margin-right: auto; color: var(--navy); font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 1040px) {
+    .project-work--showcase .project-work__grid { --project-width: 39vw; }
+  }
+
+  @media (max-width: 700px) {
+    .project-work--showcase .project-work__grid { --project-width: 78vw; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-work--showcase .project-work__grid { scroll-behavior: auto; }
+    .project-work--showcase img { transition: none; }
+  }
+
+  @media (max-width: 640px) {
+    .project-work__grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .project-work__heading { margin-bottom: 18px; }
+  }
+</style>

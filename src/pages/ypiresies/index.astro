@@ -25,7 +25,7 @@ const description =
         {services.map((s, i) => (
           <article class={`row ${i % 2 === 1 ? 'row--flip' : ''}`} data-reveal>
             <a class="row__media" href={`/ypiresies/${s.slug}`} aria-label={s.title}>
-              <img src={s.image} alt={s.imageAlt} loading="lazy" width="900" height="675" />
+              <img {...s.projectPhoto} sizes="(max-width: 760px) 92vw, 45vw" loading="lazy" />
             </a>
             <div class="row__body">
               <div class="row__num">{s.num}</div>

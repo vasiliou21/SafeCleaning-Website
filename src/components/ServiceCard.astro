@@ -6,15 +6,11 @@ const label = service.fullTitle ?? service.title;
 ---
 <article class="service">
   <a class="service__img" href={href} aria-label={label}>
-    <img src={service.image} alt={service.imageAlt} loading="lazy" width="900" height="600" />
+    <img {...service.projectPhoto} sizes="(max-width: 360px) 88px, 140px" loading="lazy" />
   </a>
   <div class="service__body">
-    <span class="service__num">{service.num}</span>
     <h3><a href={href}>{label}</a></h3>
     <p>{service.short}</p>
-    <div class="service__tags">
-      {service.tags.map((t) => <span>{t}</span>)}
-    </div>
     <a class="service__more" href={href}>Δείτε περισσότερα <Icon name="arrow" size={16} stroke={2} /></a>
   </div>
 </article>

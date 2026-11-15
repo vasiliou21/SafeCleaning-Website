@@ -1,0 +1,101 @@
+---
+const projects = [
+  { file: 'commercial-interior-uniform', alt: 'Άντρας με μπλούζα SafeCleaning δίπλα σε σκάλα σε επαγγελματικό χώρο', width: 1086, height: 1448 },
+  { file: 'staircase', alt: 'Εσωτερικό κλιμακοστάσιο με μεταλλικά κιγκλιδώματα', width: 1120, height: 840 },
+  { file: 'kitchen', alt: 'Κουζίνα με ξύλινη επένδυση και νησίδα', width: 1120, height: 1493 },
+];
+---
+<home-project-gallery role="region" aria-label="Φωτογραφίες έργων της SafeCleaning">
+  <div class="hero__media">
+    {projects.map((project, index) => (
+      <img
+        src={`/images/projects/${project.file}-1120.webp`}
+        srcset={`/images/projects/${project.file}-640.webp 640w, /images/projects/${project.file}-1120.webp ${project.width}w`}
+        sizes="(max-width: 920px) 100vw, 48vw"
+        alt={project.alt}
+        width={project.width}
+        height={project.height}
+        fetchpriority={index === 0 ? 'high' : 'low'}
+        class:list={[{ 'is-current': index === 0 }]}
+        aria-hidden={index !== 0 ? 'true' : undefined}
+      />
+    ))}
+    <button type="button" class="project-motion" aria-label="Παύση εναλλαγής φωτογραφιών" hidden></button>
+  </div>
+</home-project-gallery>
+
+<script>
+  class HomeProjectGallery extends HTMLElement {
+    private timer?: number;
+
+    connectedCallback() {
+      const photos = Array.from(this.querySelectorAll('img'));
+      const play = this.querySelector<HTMLButtonElement>('.project-motion');
+      if (!play || !play.hidden) return;
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let current = 0;
+
+      const show = (index: number) => {
+        current = index;
+        photos.forEach((photo, photoIndex) => {
+          const selected = index === photoIndex;
+          photo.classList.toggle('is-current', selected);
+          if (selected) photo.removeAttribute('aria-hidden');
+          else photo.setAttribute('aria-hidden', 'true');
+        });
+      };
+
+      const setPlaying = (playing: boolean) => {
+        window.clearInterval(this.timer);
+        this.timer = playing ? window.setInterval(() => {
+          if (!document.hidden) show((current + 1) % photos.length);
+        }, 6000) : undefined;
+        play.setAttribute('aria-label', playing ? 'Παύση εναλλαγής φωτογραφιών' : 'Έναρξη εναλλαγής φωτογραφιών');
+      };
+
+      play.addEventListener('click', () => setPlaying(this.timer === undefined));
+      play.hidden = false;
+      setPlaying(!reducedMotion.matches);
+    }
+
+    disconnectedCallback() {
+      window.clearInterval(this.timer);
+      this.timer = undefined;
+    }
+  }
+
+  if (!customElements.get('home-project-gallery')) {
+    customElements.define('home-project-gallery', HomeProjectGallery);
+  }
+</script>
+
+<style>
+  .hero__media img {
+    opacity: 0;
+    transition: opacity 850ms ease;
+  }
+
+  .hero__media img.is-current { opacity: 1; }
+  .project-motion:not([hidden]) {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    width: 100%;
+    border: 0;
+    background: transparent;
+  }
+
+  .project-motion:focus-visible {
+    outline: 2px solid white;
+    outline-offset: -5px;
+  }
+
+  @media (max-width: 920px) {
+    .hero__media img { object-position: center 58%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__media img { transition: none; }
+  }
+</style>

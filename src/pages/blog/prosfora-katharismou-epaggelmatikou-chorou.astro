@@ -1,0 +1,270 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { company } from '../../data/site.js';
+import { projectPhotos } from '../../data/project-photos.js';
+import { businessCleaningGuide as guide } from '../../data/business-cleaning-guide.js';
+
+const title = 'Καθαρισμός Επαγγελματικών Χώρων: Πρόγραμμα & Κόστος | SafeCleaning';
+const site = Astro.site ?? new URL('https://safecleaning.gr');
+const absolute = (path) => new URL(path, site).href;
+const faq = [
+  { question: 'Πώς υπολογίζεται το κόστος καθαρισμού ενός επαγγελματικού χώρου;', answer: 'Το μηνιαίο κόστος εξαρτάται από τις επισκέψεις, τον χρόνο που χρειάζεται το συνεργείο και τις εργασίες που συμφωνούνται. Ζητήστε να φαίνονται στο ίδιο έγγραφο το τελικό ποσό με ΦΠΑ, τι καλύπτει και ποιες εργασίες χρεώνονται χωριστά.' },
+  { question: 'Μπορεί ο καθαρισμός να γίνεται πριν ανοίξει το κατάστημα;', answer: 'Ναι, εφόσον έχουν συμφωνηθεί οι ώρες, ο τρόπος πρόσβασης και οι εργασίες που πρέπει να έχουν τελειώσει πριν ανοίξει ο χώρος. Ζητήστε το ωράριο γραπτώς στην προσφορά.' },
+  { question: 'Συμπεριλαμβάνονται τα καθαριστικά και τα αναλώσιμα;', answer: 'Εξαρτάται από την προσφορά. Ζητήστε να φαίνεται χωριστά ποιος φέρνει καθαριστικά και εξοπλισμό και ποιος προμηθεύει χαρτί, σαπούνι και σακούλες.' },
+  { question: 'Τι γίνεται αν χαθεί μια προγραμματισμένη επίσκεψη;', answer: 'Ζητήστε να γράφει ποιος σας ενημερώνει, αν προβλέπεται αντικατάσταση και πότε μπορεί να γίνει αναπλήρωση.' },
+  { question: 'Πώς ελέγχω ότι έγιναν οι συμφωνημένες εργασίες;', answer: 'Συμφωνήστε λίστα εργασιών ανά ζώνη, ποιος δέχεται παρατηρήσεις και πότε θα επανεξετάζετε το πρόγραμμα. Στις πρώτες εβδομάδες σημειώστε ποια σημεία χρειάζονται διαφορετική συχνότητα.' },
+];
+const articleLd = {
+  '@context': 'https://schema.org', '@type': 'Article',
+  headline: guide.title, description: guide.excerpt, inLanguage: 'el-GR',
+  author: { '@type': 'Organization', name: company.name },
+  publisher: { '@type': 'Organization', name: company.name, logo: { '@type': 'ImageObject', url: absolute(company.logo) } },
+  image: absolute(guide.photo.src), mainEntityOfPage: absolute(guide.href),
+};
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map(({ question, answer }) => ({
+    '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer },
+  })),
+};
+const spaces = [
+  {
+    id: 'katastima',
+    label: 'Κατάστημα',
+    heading: 'Καθαρισμός πριν ανοίξει το κατάστημα',
+    text: 'Στην αυτοψία βλέπουμε την είσοδο, τον χώρο πελατών, τα δοκιμαστήρια και τους χώρους του προσωπικού. Συμφωνούμε ποια δάπεδα και επιφάνειες καθαρίζονται σε κάθε επίσκεψη και ποια σημεία, όπως τα ράφια ή η βιτρίνα, μπαίνουν σε χωριστό πρόγραμμα. Ορίζουμε πότε μπορεί να μπει το συνεργείο ώστε να έχει τελειώσει πριν το άνοιγμα.',
+  },
+  {
+    id: 'grafeio',
+    label: 'Γραφείο',
+    heading: 'Καθαρισμός γραφείων γύρω από το ωράριο της ομάδας',
+    text: 'Δάπεδα, κάδοι, κουζίνα και WC συνήθως χρειάζονται συχνότερη φροντίδα από μια αίθουσα που χρησιμοποιείται περιστασιακά. Συμφωνήστε ποιες επιφάνειες εργασίας επιτρέπεται να καθαρίζονται και πότε είναι ελεύθερες οι αίθουσες συσκέψεων.',
+  },
+  {
+    id: 'ktirio',
+    label: 'Επαγγελματικό κτίριο',
+    heading: 'Πρόγραμμα καθαρισμού ανά όροφο και ζώνη',
+    text: 'Η υποδοχή, οι διάδρομοι και οι ανελκυστήρες έχουν διαφορετική χρήση από τα γραφεία και τις αποθήκες. Καταγράψτε τη συχνότητα ανά ζώνη, την πρόσβαση σε κάθε όροφο και το πρόσωπο που παρακολουθεί τις εργασίες ή αναφέρει μια έκτακτη ανάγκη.',
+  },
+  {
+    id: 'eidikes',
+    label: 'Ειδικές εργασίες',
+    heading: 'Βιτρίνες, μοκέτες και εργασίες εκτός προγράμματος',
+    text: 'Για τους υαλοπίνακες συμφωνήστε ποιες πλευρές καθαρίζονται και κάθε πότε. Για βαθύ καθαρισμό μοκέτας ή καθαρισμό μετά από ανακαίνιση, ζητήστε ξεχωριστή περιγραφή και κοστολόγηση, εφόσον χρειάζονται.',
+  },
+];
+---
+<Base title={title} description={guide.excerpt} image={guide.photo.src}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  <div class="reading-progress" data-business-guide-progress aria-hidden="true"><span></span></div>
+
+  <header class="guide-hero">
+    <img class="guide-hero__image" {...guide.photo} sizes="100vw" fetchpriority="high" />
+    <div class="guide-hero__shade"></div>
+    <div class="wrap guide-hero__content">
+      <p class="crumbs"><a href="/">Αρχική</a> / <a href="/blog">Οδηγοί</a> / Επαγγελματικοί χώροι</p>
+      <p class="guide-kicker">Οδηγός για επιχειρήσεις</p>
+      <h1>{guide.title}</h1>
+      <p class="guide-hero__intro">Τι χρειάζεται ένα κατάστημα, ένα γραφείο ή ένα κτίριο για να παραμένει καθαρό όσο λειτουργεί, και τι αξίζει να συμφωνήσετε πριν ξεκινήσει το συνεργείο.</p>
+      <nav class="guide-jumps" aria-label="Περιεχόμενα άρθρου">
+        <a href="#perilamvanei">Τι περιλαμβάνει</a><a href="#programma">Κάθε πότε</a><a href="#kostos">Κόστος</a><a href="#prosfora">Προσφορά</a><a href="#faq">Ερωτήσεις</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="guide">
+    <section class="guide-opening">
+      <div class="wrap guide-opening__grid">
+        <p class="guide-opening__statement">Ο τακτικός καθαρισμός ξεκινά με <mark class="scroll-highlight">συγκεκριμένες εργασίες</mark> και <mark class="scroll-highlight">ωράριο που ταιριάζει στον χώρο.</mark></p>
+        <div>
+          <p>Έχετε ένα κατάστημα που πρέπει να είναι έτοιμο πριν ανοίξει ή ένα κτίριο όπου ο καθαρισμός πρέπει να χωράει στο ωράριο των εργαζομένων; Περιγράψτε στα συνεργεία τους ίδιους χώρους, τις ίδιες ώρες πρόσβασης και τις ίδιες εργασίες.</p>
+          <p>Η είσοδος ενός καταστήματος, μια κουζίνα γραφείου και οι ανελκυστήρες ενός κτιρίου έχουν διαφορετική χρήση. Το πρόγραμμα ορίζει <mark class="guide-highlight">τι γίνεται σε κάθε επίσκεψη</mark> και τι αρκεί να γίνεται περιοδικά.</p>
+          <p>Αν υπάρχουν σημεία με ιδιαίτερη πρόσβαση ή ώρες όπου ο χώρος πρέπει να παραμένει ελεύθερος, καταγράψτε τα πριν συμφωνηθεί η προσφορά.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="perilamvanei" class="guide-block guide-block--ink">
+      <div class="wrap">
+        <div class="guide-heading-row">
+          <h2>Τι περιλαμβάνει ο τακτικός καθαρισμός ανά τύπο χώρου</h2>
+          <p>Επιλέξτε τον χώρο που σας ενδιαφέρει για να δείτε ποιες εργασίες και ποια θέματα πρόσβασης αξίζει να συζητήσετε στην αυτοψία.</p>
+        </div>
+        <business-space-explorer class="space-explorer">
+          <div class="space-tabs" role="tablist" aria-label="Τύποι επαγγελματικού χώρου">
+            {spaces.map(({ id, label }, i) => (
+              <button class:list={['space-tab', { 'is-active': i === 0 }]} type="button" id={`tab-${id}`} role="tab" aria-controls={`panel-${id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{label}</button>
+            ))}
+          </div>
+          <div class="space-stage">
+            {spaces.map(({ id, heading, text }, i) => (
+              <div class:list={['space-panel', { 'is-active': i === 0 }]} id={`panel-${id}`} role="tabpanel" aria-labelledby={`tab-${id}`} tabindex="0" hidden={i !== 0}>
+                <strong>{heading}</strong>
+                <p>{text}</p>
+              </div>
+            ))}
+          </div>
+        </business-space-explorer>
+      </div>
+    </section>
+
+    <section class="guide-photo" id="programma">
+      <div class="wrap guide-photo__grid">
+        <figure>
+          <img {...projectPhotos.commercial} sizes="(max-width: 760px) 92vw, 42vw" loading="lazy" />
+          <figcaption>Οι ζώνες και οι επιφάνειες του χώρου καθορίζουν τι θα μπει στο πρόγραμμα.</figcaption>
+        </figure>
+        <div class="guide-photo__copy">
+          <h2>Πώς οργανώνετε το πρόγραμμα</h2>
+          <div class="frequency-row"><span>Κατάστημα</span><p>Συμφωνήστε πότε μπαίνει το συνεργείο και ποια σημεία πρέπει να είναι έτοιμα <mark class="guide-highlight">πριν το άνοιγμα</mark>. Καταγράψτε χωριστά βιτρίνα, ράφια, δοκιμαστήρια, WC και βοηθητικούς χώρους.</p></div>
+          <div class="frequency-row"><span>Κτίριο</span><p>Χωρίστε το κτίριο σε ζώνες. Η είσοδος και οι ανελκυστήρες μπορεί να χρειάζονται διαφορετική συχνότητα από μία αίθουσα που χρησιμοποιείται περιστασιακά.</p></div>
+          <div class="frequency-row"><span>Ειδικές εργασίες</span><p>Αν χρειάζεστε εξωτερικούς υαλοπίνακες, μοκέτες ή καθαρισμό μετά από εργασίες, ζητήστε να συμφωνηθούν χωριστά <mark class="guide-highlight">η συχνότητα και η χρέωση</mark>.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kostos" class="guide-block guide-block--gold">
+      <div class="wrap cost-grid">
+        <div>
+          <h2>Τι επηρεάζει το μηνιαίο κόστος</h2>
+          <p class="cost-intro">Για τη μηνιαία προσφορά, το συνεργείο υπολογίζει <mark class="guide-highlight">πόσες επισκέψεις χρειάζονται και πόσο διαρκεί η καθεμία</mark>. Δύο χώροι με τα ίδια τετραγωνικά μπορεί να χρειάζονται διαφορετικό χρόνο, ανάλογα με τη χρήση τους και τις εργασίες που συμφωνούνται.</p>
+        </div>
+        <div class="cost-factors">
+          <p><span class="cost-n">01</span><span><b>Χρόνος και συχνότητα.</b> Ορίστε τις επισκέψεις ανά μήνα και την εκτιμώμενη διάρκεια για τις συμφωνημένες εργασίες.</span></p>
+          <p><span class="cost-n">02</span><span><b>Επιφάνειες και πρόσβαση.</b> Τα WC, τα σημεία με αυξημένη κίνηση και τα δάπεδα με ειδικές απαιτήσεις μπορούν να αυξήσουν τον χρόνο. Το διαθέσιμο ωράριο καθορίζει πότε μπορεί να δουλέψει το συνεργείο.</span></p>
+          <p><span class="cost-n">03</span><span><b>Υλικά και πρόσθετες εργασίες.</b> Ξεκαθαρίστε αν το ποσό καλύπτει καθαριστικά και εξοπλισμό, ποιος προμηθεύει τα αναλώσιμα και πώς κοστολογούνται εργασίες όπως ο βαθύς καθαρισμός μοκέτας.</span></p>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="cost-example">
+          <h3>Πώς αλλάζει το κόστος όταν αλλάζει το πρόγραμμα;</h3>
+          <p>Αν ένα γραφείο χρειάζεται δύο δίωρες επισκέψεις την εβδομάδα, το συνεργείο δουλεύει τέσσερις ώρες. Αν ο ίδιος χώρος χρειάζεται τρεις δίωρες επισκέψεις, οι ώρες γίνονται έξι. Για να συγκρίνετε προσφορές, ζητήστε <mark class="guide-highlight">το τελικό μηνιαίο ποσό με ΦΠΑ για το ίδιο πρόγραμμα</mark> και χωριστή τιμή για τυχόν πρόσθετες εργασίες.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="prosfora" class="guide-block guide-block--white">
+      <div class="wrap offer-grid">
+        <div>
+          <h2>Τι πρέπει να γράφει η προσφορά καθαρισμού</h2>
+          <p class="offer-intro">Περιγράψτε <mark class="guide-highlight">τα ίδια σημεία και το ίδιο ωράριο</mark> σε κάθε συνεργείο. Έτσι θα ξέρετε τι καλύπτει το μηνιαίο ποσό που σας προτείνει.</p>
+        </div>
+        <div class="offer-list">
+          <p><b>Χώροι και εργασίες.</b> Ποια σημεία καλύπτονται σε κάθε επίσκεψη και ποια περιοδικά.</p>
+          <p><b>Ημέρες, ώρες και πρόσβαση.</b> Πόσες επισκέψεις γίνονται και ποιος ανοίγει τον χώρο.</p>
+          <p><b>Καθαριστικά και αναλώσιμα.</b> Ποιος φέρνει εξοπλισμό και ποιος προμηθεύει χαρτί, σαπούνι και σακούλες.</p>
+          <p><b>Επικοινωνία και αναπλήρωση.</b> Ποιος ενημερώνει εάν δεν μπορεί να γίνει μια επίσκεψη και πώς συμφωνείται νέα ώρα.</p>
+          <p><b>Μηνιαίο κόστος και πρόσθετες χρεώσεις.</b> Ζητήστε το τελικό ποσό με ΦΠΑ και τη χωριστή χρέωση για κάθε εργασία εκτός προγράμματος.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="guide-block guide-block--mistakes">
+      <div class="wrap mistakes-grid">
+        <div><h2>Τρία σημεία που θέλουν διευκρίνιση</h2></div>
+        <div>
+          <article><h3>Τι εννοούμε όταν γράφουμε «καθαρισμός βιτρίνας»;</h3><p>Μπορεί να αφορά μόνο την εσωτερική πλευρά ή και την εξωτερική. Ζητήστε να γράφει ποιες επιφάνειες καλύπτονται και κάθε πότε.</p></article>
+          <article><h3>Πώς υπολογίζονται οι επισκέψεις;</h3><p>«Μία φορά την εβδομάδα» και «τέσσερις φορές τον μήνα» μπορούν να δώσουν διαφορετικό πρόγραμμα. Συμφωνήστε τις ημέρες και τι γίνεται στις αργίες.</p></article>
+          <article><h3>Ποιος ενημερώνεται όταν κάτι παραλείπεται;</h3><p>Ορίστε ποιον καλείτε και πώς καταγράφεται μια εργασία που μένει για επόμενη επίσκεψη.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="guide-faq">
+      <div class="wrap wrap--narrow">
+        <h2>Συχνές ερωτήσεις πριν συμφωνήσετε</h2>
+        <div class="article__faq">{faq.map(({ question, answer }) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div>
+      </div>
+    </section>
+
+    <section class="local-block">
+      <div class="wrap local-block__inner">
+        <h2>Τακτικός καθαρισμός στην Παλλήνη και την Αττική</h2>
+        <p>Δείτε τις υπηρεσίες μας για <a href="/ypiresies/epaggelmatikoi-choroi/">επαγγελματικούς χώρους</a> και <a href="/ypiresies/katharismoi-ktirion/">κτίρια</a>. Στην αυτοψία καταγράφουμε τον χώρο, το ωράριο και όσα θέλετε να μπουν στο πρόγραμμα.</p>
+      </div>
+    </section>
+  </div>
+
+  <div class="guide-final-cta">
+    <CtaBand title="Θέλετε γραπτή προσφορά για τον χώρο σας;" text="Κλείστε δωρεάν αυτοψία. Πείτε μας πότε λειτουργεί ο χώρος σας και ποιες εργασίες χρειάζεται το πρόγραμμά σας." actionText="Κλείστε δωρεάν αυτοψία" />
+  </div>
+</Base>
+
+<script>
+  class BusinessSpaceExplorer extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.ready) return;
+      this.dataset.ready = 'true';
+      const tabs = Array.from(this.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+      const panels = Array.from(this.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+      const activate = (index: number) => {
+        tabs.forEach((tab, i) => {
+          const selected = i === index;
+          tab.setAttribute('aria-selected', String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+          tab.classList.toggle('is-active', selected);
+          panels[i].hidden = !selected;
+          panels[i].classList.toggle('is-active', selected);
+        });
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => activate(index));
+        tab.addEventListener('keydown', (event) => {
+          const next = {
+            ArrowDown: (index + 1) % tabs.length,
+            ArrowRight: (index + 1) % tabs.length,
+            ArrowUp: (index - 1 + tabs.length) % tabs.length,
+            ArrowLeft: (index - 1 + tabs.length) % tabs.length,
+            Home: 0,
+            End: tabs.length - 1,
+          }[event.key];
+          if (next == null) return;
+          event.preventDefault();
+          activate(next);
+          tabs[next].focus();
+        });
+      });
+    }
+  }
+  if (!customElements.get('business-space-explorer')) {
+    customElements.define('business-space-explorer', BusinessSpaceExplorer);
+  }
+
+  let progress: HTMLElement | null;
+  function updateProgress() {
+    if (!progress) return;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = `scaleX(${total > 0 ? window.scrollY / total : 0})`;
+  }
+  function setupProgress() {
+    progress = document.querySelector('[data-business-guide-progress] span');
+    window.removeEventListener('scroll', updateProgress);
+    if (!progress) return;
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  }
+  setupProgress();
+  document.addEventListener('astro:page-load', setupProgress);
+</script>
+
+<style>
+  .guide-opening .scroll-highlight { background-size: 100% 100%; }
+  .guide-highlight {
+    color: inherit;
+    background: linear-gradient(transparent 59%, var(--guide-highlight-color, #efda9e) 59%, var(--guide-highlight-color, #efda9e) 96%, transparent 96%);
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .guide-block--gold { --guide-highlight-color: #f7e5ac; }
+  .cost-example {
+    margin-top: clamp(2rem, 5vw, 4rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid currentColor;
+  }
+  .cost-example h3 { margin-bottom: .75rem; }
+  .cost-example p { max-width: 68ch; }
+  #programma, #faq { scroll-margin-top: 76px; }
+</style>

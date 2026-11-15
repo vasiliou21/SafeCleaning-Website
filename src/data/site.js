@@ -2,6 +2,8 @@
 // All copy is grounded in the client's real site (safecleaning.gr). Edit here
 // and every page/component updates. No prices (inquiry/quote model).
 
+import { projectPhotos } from './project-photos.js';
+
 export const company = {
   name: 'SafeCleaning',
   tagline: 'Υπηρεσίες Καθαρισμού',
@@ -77,8 +79,9 @@ export const services = [
     title: 'Καθαρισμοί Πολυκατοικιών',
     short:
       'Εξειδικευμένα προγράμματα για κοινόχρηστους χώρους, προσαρμοσμένα στις ανάγκες κάθε πολυκατοικίας.',
-    image: '/images/svc-polykatoikion.jpg',
-    imageAlt: 'Καθαρισμός κοινόχρηστων χώρων πολυκατοικίας',
+    heroSubtitle:
+      'Σταθερό πρόγραμμα για είσοδο, σκάλες, ασανσέρ και κοινόχρηστους χώρους στην Παλλήνη και την Αττική. Ξεκινάμε με δωρεάν αυτοψία.',
+    projectPhoto: projectPhotos.staircase,
     promise: 'Μια καθαρή είσοδος και ένα φροντισμένο κλιμακοστάσιο είναι το πρώτο που βλέπει κάθε επισκέπτης της πολυκατοικίας.',
     tags: ['Σκάλες & διάδρομοι', 'Ασανσέρ', 'Είσοδοι & τζάμια'],
     metaTitle: 'Συνεργείο Καθαρισμού Πολυκατοικιών | Δωρεάν Αυτοψία στην Αττική',
@@ -107,8 +110,10 @@ export const services = [
     fullTitle: 'Καθαρισμός Επαγγελματικών Χώρων',
     short:
       'Εσωτερικός και εξωτερικός καθαρισμός σε γραφεία, καταστήματα και επαγγελματικούς χώρους, εντός ή εκτός ωραρίου.',
-    image: '/images/svc-epaggelmatikoi.jpg',
-    imageAlt: 'Καθαρισμός γραφείων και επαγγελματικού χώρου',
+    projectPhoto: projectPhotos.commercial,
+    projectExamples: [
+      { photo: projectPhotos.partitions, caption: 'Γυάλινα χωρίσματα' },
+    ],
     promise: 'Ένας περιποιημένος επαγγελματικός χώρος δείχνει σεβασμό στους εργαζόμενους, τους πελάτες και τους συνεργάτες σας.',
     tags: ['Γραφεία', 'Χώροι υγιεινής', 'Τζάμια & υαλοπίνακες'],
     metaTitle: 'Καθαρισμός Γραφείων & Επαγγελματικών Χώρων | Παλλήνη & Αττική',
@@ -134,8 +139,7 @@ export const services = [
     fullTitle: 'Καθαρισμοί Κτιρίων & Εγκαταστάσεων',
     short:
       'Ολοκληρωμένη φροντίδα κτιριακών εγκαταστάσεων κάθε χρήσης, με απολύμανση και αποστείρωση κάθε λεπτομέρειας.',
-    image: '/images/svc-ktirion.jpg',
-    imageAlt: 'Καθαρισμός κτιριακών εγκαταστάσεων',
+    projectPhoto: projectPhotos.building,
     promise: 'Από τους κοινόχρηστους χώρους έως την πιο απαιτητική λεπτομέρεια, φροντίζουμε ολόκληρο το κτίριο με μία ομάδα.',
     tags: ['Απολύμανση', 'Σύγχρονος εξοπλισμός', 'Απαιτητικοί χώροι'],
     metaTitle: 'Καθαρισμοί Κτιρίων & Εγκαταστάσεων στην Αττική | SafeCleaning',
@@ -159,8 +163,11 @@ export const services = [
     fullTitle: 'Αρχικοί Καθαρισμοί Νεόδμητων',
     short:
       'Εντατικός καθαρισμός σε νεόδμητους ή ανακαινισμένους χώρους, ώστε να παραδοθούν έτοιμοι προς χρήση.',
-    image: '/images/svc-archikoi.jpg',
-    imageAlt: 'Αρχικός καθαρισμός νεόδμητου χώρου μετά από κατασκευή',
+    projectPhoto: projectPhotos.kitchen,
+    projectExamples: [
+      { photo: projectPhotos.bathroom, caption: 'Μπάνιο' },
+      { photo: projectPhotos.room, caption: 'Ενιαίος χώρος' },
+    ],
     promise: 'Παραλαμβάνουμε τον χώρο με τα κατάλοιπα της κατασκευής και τον παραδίδουμε καθαρό, έτοιμο για χρήση.',
     tags: ['Νεόδμητα', 'Μετά από ανακαίνιση', 'Άμεση παράδοση'],
     metaTitle: 'Αρχικοί Καθαρισμοί Νεόδμητων & Ανακαινισμένων Χώρων | SafeCleaning',
